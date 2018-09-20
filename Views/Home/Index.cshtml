@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="heading">
+    <h1>Расписание событий</h1>
+    <a title="Добавить мероприятие" class="fas fa-plus" asp-controller="Home" asp-action="AddEvent"></a>   
+</div>
+
+<div>
+    @foreach (Event ev in Model.Events)
+    {
+        <table id="@ev.Id">
+            <tbody>
+            <tr>
+                <td>Название мероприятия</td>
+                <td>@ev.EventName</td>
+            </tr>
+            <tr>
+                <td>Дата и время проведения</td>
+                <td>@ev.EventDateTime.ToString("f")</td>
+            </tr>
+            @if (ev.VisitorsCount != 0)
+            {
+                <tr>
+                    <td>Максимальное количество посетителей</td>
+                    <td>@ev.VisitorsCount</td>
+                </tr>
+            }
+            
+            @{
+                string[] param = ev.Params.Split(';');
+                Dictionary<string, string> p = new Dictionary<string, string>();
+                foreach (string s in param)
+                {
+                    if (s != "")
+                    {
+                        string[] r = s.Split(':');
+                        p.Add(r[0], r[1]);
+                    }
+                }
+
+                foreach (KeyValuePair<string, string> keyValue in p)
+                {
+                    <tr>
+                        <td>@keyValue.Key</td>
+                        <td>@keyValue.Value</td>
+                    </tr>
+                }
+            }
+            </tbody>
+            <tfoot><a asp-controller="Home" asp-action="RegisterOnEvent" asp-route-id="@ev.Id">Зарегестрироваться</a></tfoot>
+        </table>
+    }
+</div>

@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Добавление мероприятия";
+    Layout = "_Layout";
+}
+
+<div id="message"></div>
+<h2>Заполните форму чтобы добавить мероприятие</h2>
+<form id="add-event-form" class="add-event-form" asp-action="SubmitEvent" onsubmit="submitForm(event)">
+    <button type="submit">Submit</button>
+    <div>
+        <label for="event-name">Наименование мероприятия:</label>
+        <input required type="text" id="event-name" name="EventName">
+    </div>
+    <div>
+        <label for="VisitorsCount">Количество посетителей:</label>
+        <input type="number"  id="VisitorsCount" name="VisitorsCount">
+    </div>
+    <input type="hidden" id="eventDateTime" name="EventDateTime">
+    <input type="hidden" id="eventParams" name="Params">
+</form>
+<div id="forForm">
+    <div>
+        <label for="EventDate">Дата мероприятия:</label>
+        <input required type="date" id="EventDate" name="EventDate">
+    </div>
+    <div>
+        <label for="EventTime">Время мероприятия:</label>
+        <input required type="time"  id="EventTime" name="EventTime">
+    </div>
+    <i class="fas fa-plus" onclick="openModal()"></i>
+</div>
+<div id="modal">
+    <div id="modal-head"><h3>Добавление нового параметра мероприятия</h3></div>
+    <div id="modal-body">
+        <label for="new-param-name">Имя нового параметра</label>
+        <input type="text" id="new-param-name">
+    </div>
+    <div id="modal-foot">
+        <div onclick="submitModal()">Принять</div>
+        <div onclick="hideModal()">Отмена</div>
+    </div>
+</div>
+<div id="overlay"></div>

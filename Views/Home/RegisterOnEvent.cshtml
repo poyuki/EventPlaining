@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Регичстрация на мероприятие: @Model.Event.EventName</h2>
+<form method="post" asp-action="SendSubmitEmail">
+    <button type="submit">Submit</button>
+    <div>
+        <label for="first-name">Имя</label>
+        <input required type="text" id="first-name" name="FirstName">
+    </div>
+    <div>
+        <label for="second-name">Фамилия</label>
+        <input required type="text" id="second-name" name="SecondName">
+    </div>
+    <div>
+        <label for="age">Возраст</label>
+        <input required type="number" id="age" name="Age">
+    </div>
+    <div>
+        <label for="email">Адрес электронно почты</label>
+        <input required type="email" id="email" name="Email">
+    </div>
+    <div>
+        <label for="email">О себе</label>
+        <textarea  id="about" name="AboutInfo"></textarea>
+    </div>
+    <input type="hidden" id="eventParams" name="Submited" value="false">
+    <input type="hidden" id="eventDateTime" name="EventId" value="@Model.Event.Id">
+</form>

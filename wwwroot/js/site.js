@@ -1,0 +1,53 @@
+﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+// for details on configuring this project to bundle and minify static web assets.
+
+// Write your JavaScript code.
+
+function openModal() {
+    let modal=$('#modal');
+    $('#overlay').show();
+    modal.css({
+        'display':'flex',
+        'margin-top':`-${modal.height()/2}px`,
+        'margin-left':`-${modal.width()/2}px`,
+    });
+
+}
+function hideModal() {
+    $('#overlay').hide();
+    $('#modal').hide();
+    $('#modal-body input').val('');
+}
+
+function submitModal() {
+    let val=($('#modal-body input').val()).trim(),html,
+        id=$('form div:last')[0].id,idVal=id===''?0:parseInt(id);
+    if (val!==''){
+        html = `<div id="${idVal++}" class="params"><label for="pram-name-${idVal++}">${val}</label><input id="pram-name-${idVal++}">
+                <i class="fas fa-minus" onclick="deleteParam(event)"></i></div>`;
+        $('#forForm i.fa-plus').before(html);
+    }
+    hideModal()
+}
+function deleteParam(ev) {
+    let el=$(ev.currentTarget).closest('div');
+    el.remove()
+}
+
+function submitForm(ev) {
+    let params=getParams();
+    $('#eventParams').val(params);
+    let dateTime=`${$('#EventDate').val()} ${$('#EventTime').val()}`;
+    $('#eventDateTime').val(dateTime);
+}
+
+function getParams() {
+    let params = $('.params'), res = ``;
+    params.each((i, el) => {
+        let elem = $(el);
+        if ((elem.children('input')).val() !== '') {
+            res += `${(elem.children('label')).text()}:${(elem.children('input')).val()};`
+        }
+    });
+    return res;
+}
