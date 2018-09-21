@@ -138,3 +138,66 @@ form i,#forForm i:hover{
 #message a:hover{
     color: darkgoldenrod;
 }
+
+.visitor-list{
+    display:flex;
+    flex-wrap: wrap;
+    
+}
+.visitor-list>div{
+    padding: 10px;
+    border: 1px solid black;
+    margin: 10px;
+}
+.left-col{
+    width:250px;
+}
+.right-col{
+    width:250px;
+}
+tr:nth-child(even){
+    background-color: lightgrey;
+}
+.events-list{
+    width: 500px;
+    margin: 0 auto;
+}
+.events-list>div{
+    border-bottom:solid black 1px;
+    padding: 10px 0;
+}
+.events-list>div:last-child{
+    border: none;
+}
+.form-el>*{
+    width: 250px;
+}
+.params>label{
+    width: 250px;
+}
+.params>input{
+    width:234px;
+}
+.submit-event-button{
+    background-color: dodgerblue;
+    border: none;
+    color: white;
+    width: 100%;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+}
+.submit-event-button:hover{
+    background-color: blue;
+    color: goldenrod;
+}
+.add-event-wrap{
+    margin: 0 auto;
+    width: 505px;
+}
+.regist-form-wrap{
+    width: 405px;
+    margin: 0 auto;
+}
+.regist-form-wrap div>*{
+    width: 200px;
+}

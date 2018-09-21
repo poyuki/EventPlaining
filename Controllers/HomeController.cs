@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using EventPlaining.Models;
 using EventPlaining.ViewModel;
-using FluentEmail.Core;
-using Newtonsoft.Json.Linq;
+using MimeKit;
+using MailKit.Net.Smtp;
+using Microsoft.EntityFrameworkCore;
 
 namespace EventPlaining.Controllers
 {
@@ -21,30 +21,11 @@ namespace EventPlaining.Controllers
         
         public IActionResult Index()
         {
-            List<Event> events = db.Events.ToList();
+            List<Event> events = db.Events.Include(e=>e.Visitors).ToList();
             IndexViewModel ivm = new IndexViewModel {Events = events};
             return View(ivm);
         }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-        
         public IActionResult AddEvent()
         {
             return View();
@@ -72,38 +53,101 @@ namespace EventPlaining.Controllers
         }
         
         [HttpPost]
-        public IActionResult SendSubmitEmail(Visitor vi)
+        public IActionResult SendSubmitEmail(NotSubmitedVisitor vi)
         {
+            
+            SendSubmitEmailViewModel ssevm = new SendSubmitEmailViewModel();
             try
             {
-                db.Visitor.Add(vi);
+                db.NotSubmitedVisitors.Add(vi);
                 db.SaveChanges();
-                ViewData["Message"] = "На указанный эелектронный почтовый ящик отправленно письмо с сылкой для подверждения регистрации на мероприятие <a href='"+vi.Email+"'>Ваша почта</a>";
+                ssevm.Message =
+                    "На указанный эелектронный почтовый ящик отправленно письмо с сылкой для подверждения регистрации на мероприятие!";
+                ssevm.SuccessStatus = true;
+                ssevm.Email = vi.Email;
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("Админ", "Amin@mail.com"));
+                message.To.Add(new MailboxAddress(String.Format("{0} {1}",vi.FirstName,vi.SecondName), vi.Email));
+                message.Subject = "How you doin'?";
                 
-                var email = Email
-                    .From("john@email.com")
-                    .To("poyuki9@gmail.com", "bob")
-                    .Subject("hows it going bob")
-                    .Body("yo dawg, sup?")
-                    .Send();
+                string linkToEvent = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+                
+                message.Body = new TextPart("plain")
+                {
+                    Text= $@"Приветствую вас {vi.FirstName} {vi.SecondName}!
+Вый зарегестрировались на одно из меропритий в нашей системе.
+Пожалуйста, подтвердите регистрацию перейдя по ссылке {linkToEvent}/Home/SubmitRegistration?id={vi.Id}"
+                };
+                using (var client = new SmtpClient())
+                {
+                    client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+                    
+                    client.Connect("smtp.gmail.com", 465, true);
+                    client.Authenticate ("testmailpoyu@gmail.com", "123993pki");
 
-                
+                    client.Send (message);
+                    client.Disconnect (true);
+                }
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.StackTrace);
                 ViewData["Message"] = "При регистрации на мероприятие произошла ошибка!";
+                ssevm.Message ="При регистрации на мероприятие произошла ошибка!";
+                ssevm.SuccessStatus = false;
             }
+            
+            return View(ssevm);
+        }
+        
+        
+        public IActionResult SubmitRegistration(long id)
+        {
+            NotSubmitedVisitor nvi=db.NotSubmitedVisitors.Find(id);
+            Event ev = db.Events
+                .Include(e => e.Visitors)
+                .SingleOrDefault(e => e.Id == nvi.EventId);
+            if (ev != null && (ev.Visitors.Count < ev.VisitorsCount||ev.VisitorsCount==0))
+            {
+                try
+                {
+                    Visitor vi=new Visitor();
+                    vi.SetVIfromNvi(nvi);
+                    db.Visitors.Add(vi);
+                    db.NotSubmitedVisitors.Remove(nvi);
+                    db.SaveChanges();
+                    ViewData["Message"] = $"Регистрация прошла суспешно. Спасибо за пердстоящие участие в мераприятии: {ev.EventName}";
+                }
+                catch (Exception e)
+                {
+                    ViewData["Message"] = "При подтверждении регистрация произошел сбой, пожалуйста попробуйте позже";
+                    Console.WriteLine(e);
+                }
+            }
+            else
+            {
+                ViewData["Message"] = "К сожалению произошла не состыковочка и регистрация на данное мероприяте уже закрыта. Предлагаем вам зарегестрироваться ну другое мероприятие";
+            }
+            
             
             return View();
         }
         
-        [HttpGet]
-        public IActionResult SubmitRegistration()
+        public IActionResult EventVisitors(long id)
         {
+            Event ev= db.Events
+                .Include(e => e.Visitors)
+                .SingleOrDefault(e => e.Id == id);;
+            List<NotSubmitedVisitor> nsvi= db.NotSubmitedVisitors.Where(nsvi2=>nsvi2.EventId==ev.Id).ToList();
             
-            return View();
+            EventVisitorsViewModel rvm = new EventVisitorsViewModel
+            {
+                Events = ev,
+                NotSubmitedVisitors = nsvi
+            } ;
+            return View(rvm);
         }
         
         [HttpGet]

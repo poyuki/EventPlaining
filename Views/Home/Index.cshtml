@@ -7,49 +7,68 @@
     <a title="Добавить мероприятие" class="fas fa-plus" asp-controller="Home" asp-action="AddEvent"></a>   
 </div>
 
-<div>
+<div class="events-list">
     @foreach (Event ev in Model.Events)
     {
-        <table id="@ev.Id">
-            <tbody>
-            <tr>
-                <td>Название мероприятия</td>
-                <td>@ev.EventName</td>
-            </tr>
-            <tr>
-                <td>Дата и время проведения</td>
-                <td>@ev.EventDateTime.ToString("f")</td>
-            </tr>
-            @if (ev.VisitorsCount != 0)
-            {
+        <div>
+            <table id="@ev.Id">
+                <tbody>
                 <tr>
-                    <td>Максимальное количество посетителей</td>
-                    <td>@ev.VisitorsCount</td>
+                    <td colspan="2" style="text-align: center; padding: 5px 0; font-size: 18px;"><a asp-action="EventVisitors" asp-route-id="@ev.Id">@ev.EventName</a></td>
                 </tr>
-            }
-            
-            @{
-                string[] param = ev.Params.Split(';');
-                Dictionary<string, string> p = new Dictionary<string, string>();
-                foreach (string s in param)
-                {
-                    if (s != "")
-                    {
-                        string[] r = s.Split(':');
-                        p.Add(r[0], r[1]);
-                    }
-                }
-
-                foreach (KeyValuePair<string, string> keyValue in p)
+                <tr>
+                    <td class="left-col">Дата и время проведения</td>
+                    <td class="right-col">@ev.EventDateTime.ToString("f")</td>
+                </tr>
+                @if (ev.VisitorsCount != 0)
                 {
                     <tr>
-                        <td>@keyValue.Key</td>
-                        <td>@keyValue.Value</td>
+                        <td class="left-col">Максимальное количество посетителей</td>
+                        <td class="right-col">@ev.Visitors.Count/@ev.VisitorsCount</td>
                     </tr>
                 }
-            }
-            </tbody>
-            <tfoot><a asp-controller="Home" asp-action="RegisterOnEvent" asp-route-id="@ev.Id">Зарегестрироваться</a></tfoot>
-        </table>
+                else
+                {
+                    <tr>
+                        <td class="left-col">Максимальное количество посетителей</td>
+                        <td class="right-col">Неограниченно</td>
+                    </tr>
+                }
+                @if (ev.Params != null)
+                {
+                    string[] param = ev.Params.Split(';');
+                    Dictionary<string, string> p = new Dictionary<string, string>();
+                    foreach (string s in param)
+                    {
+                        if (s != "")
+                        {
+                            string[] r = s.Split(':');
+                            p.Add(r[0], r[1]);
+                        }
+                    }
+
+                    foreach (KeyValuePair<string, string> keyValue in p)
+                    {
+                        <tr>
+                            <td class="left-col">@keyValue.Key</td>
+                            <td class="right-col">@keyValue.Value</td>
+                        </tr>
+                    }
+                }
+                <tr>
+                    <td colspan="2" style="text-align: center; padding: 5px 0;">
+                        @if (ev.VisitorsCount > ev.Visitors.Count||ev.VisitorsCount==0)
+                        {
+                            <a title="Регистрация открыта" asp-controller="Home" asp-action="RegisterOnEvent" asp-route-id="@ev.Id">Зарегестрироваться</a>
+                        }
+                        else
+                        {
+                            <span title="Регистрация закрыта" style="color: gray;">Зарегестрироваться</span>
+                        }
+                    </td>
+                </tr>
+                <tfoot>
+            </table>
+        </div>
     }
 </div>

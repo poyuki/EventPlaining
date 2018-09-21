@@ -14,13 +14,9 @@ D:\Poyu\Тест\EventPlaining\obj\Debug\netcoreapp2.1\EventPlaining.AssemblyInf
 D:\Poyu\Тест\EventPlaining\obj\Debug\netcoreapp2.1\EventPlaining.TagHelpers.input.cache
 D:\Poyu\Тест\EventPlaining\obj\Debug\netcoreapp2.1\EventPlaining.TagHelpers.output.cache
 D:\Poyu\Тест\EventPlaining\obj\Debug\netcoreapp2.1\EventPlaining.RazorCoreGenerate.cache
-D:\Poyu\Тест\EventPlaining\obj\Debug\netcoreapp2.1\Razor\Views\Home\About.g.cshtml.cs
 D:\Poyu\Тест\EventPlaining\obj\Debug\netcoreapp2.1\Razor\Views\Home\AddEvent.g.cshtml.cs
-D:\Poyu\Тест\EventPlaining\obj\Debug\netcoreapp2.1\Razor\Views\Home\Contact.g.cshtml.cs
 D:\Poyu\Тест\EventPlaining\obj\Debug\netcoreapp2.1\Razor\Views\Home\Index.g.cshtml.cs
-D:\Poyu\Тест\EventPlaining\obj\Debug\netcoreapp2.1\Razor\Views\Home\Privacy.g.cshtml.cs
 D:\Poyu\Тест\EventPlaining\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Error.g.cshtml.cs
-D:\Poyu\Тест\EventPlaining\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs
 D:\Poyu\Тест\EventPlaining\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Layout.g.cshtml.cs
 D:\Poyu\Тест\EventPlaining\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_ValidationScriptsPartial.g.cshtml.cs
 D:\Poyu\Тест\EventPlaining\obj\Debug\netcoreapp2.1\Razor\Views\_ViewImports.g.cshtml.cs
@@ -35,3 +31,5 @@ D:\Poyu\Тест\EventPlaining\obj\Debug\netcoreapp2.1\Razor\Views\Home\SubmitEv
 D:\Poyu\Тест\EventPlaining\obj\Debug\netcoreapp2.1\Razor\Views\Home\RegisterOnEvent.g.cshtml.cs
 D:\Poyu\Тест\EventPlaining\obj\Debug\netcoreapp2.1\Razor\Views\Home\SendSubmitEmail.g.cshtml.cs
 D:\Poyu\Тест\EventPlaining\obj\Debug\netcoreapp2.1\Razor\Views\Home\SubmitRegistration.g.cshtml.cs
+D:\Poyu\Тест\EventPlaining\obj\Debug\netcoreapp2.1\Razor\Views\Home\EventVisitors.g.cshtml.cs
+D:\Poyu\Тест\EventPlaining\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs

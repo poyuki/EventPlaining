@@ -41,15 +41,10 @@ namespace EventPlaining
                     {
                         mysqlOptions.ServerVersion(new Version(5, 6, 37), ServerType.MySql); // replace with your Server Version and Type
                     }
+                    
                 ));
-            /*string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<EventContext>(options =>
-                options.UseMySQL(connection));*/
+                
             
-            services
-                .AddFluentEmail("fromemail@test.test")
-                .AddSmtpSender("localhost", 25);
-        
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

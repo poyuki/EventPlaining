@@ -23,7 +23,7 @@ function submitModal() {
     let val=($('#modal-body input').val()).trim(),html,
         id=$('form div:last')[0].id,idVal=id===''?0:parseInt(id);
     if (val!==''){
-        html = `<div id="${idVal++}" class="params"><label for="pram-name-${idVal++}">${val}</label><input id="pram-name-${idVal++}">
+        html = `<div id="${idVal++}" class="params"><label for="pram-name-${idVal++}">${val}:</label> <input id="pram-name-${idVal++}">
                 <i class="fas fa-minus" onclick="deleteParam(event)"></i></div>`;
         $('#forForm i.fa-plus').before(html);
     }

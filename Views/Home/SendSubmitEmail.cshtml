@@ -5,4 +5,13 @@
 }
 
 <h2>Регистрация</h2>
-<div>@ViewData["Message"]</div>
+<div>
+    @if (Model.SuccessStatus)
+    {
+        <p>@Model.Message <a href="http://@Model.Email" target="_blank">Ваша почта</a></p>
+    }
+    else
+    {
+        <p>@Model.Message</p>
+    }
+</div>
