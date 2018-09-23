@@ -79,7 +79,7 @@ using EventPlaining.ViewModel.UserViewModels;
             WriteLiteral("    <div>\r\n        ");
             EndContext();
             BeginContext(233, 1467, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "26462ce12d98416295b2dd4c6abead10", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "92cd887e8645495e9db98a439353d420", async() => {
                 BeginContext(306, 178, true);
                 WriteLiteral("\r\n            <button class=\"submit-event-button\" type=\"submit\">Сохранить</button>\r\n            <div>\r\n                <label>Имя</label>\r\n                <input name=\"FirstName\"");
                 EndContext();

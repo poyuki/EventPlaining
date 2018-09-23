@@ -48,7 +48,11 @@
       </e>
       <e p="Startup.cs" t="Include" />
       <e p="ViewModel" t="Include">
-        <e p="AdminViewModels" t="Include" />
+        <e p="AdminViewModels" t="Include">
+          <e p="AddEventViewModel.cs" t="Include" />
+          <e p="EventFollowedUsersViewModel.cs" t="Include" />
+          <e p="SubmitEventViewModel.cs" t="Include" />
+        </e>
         <e p="BaseViewModel.cs" t="Include" />
         <e p="ErrorViewModel.cs" t="Include" />
         <e p="EventVisitorsViewModel.cs" t="Include" />
@@ -71,7 +75,7 @@
         <e p="_ViewStart.cshtml" t="Include" />
         <e p="Admin" t="Include">
           <e p="AddEvent.cshtml" t="Include" />
-          <e p="EventVisitors.cshtml" t="Include" />
+          <e p="EventFollowedUsers.cshtml" t="Include" />
           <e p="SubmitEvent.cshtml" t="Include" />
         </e>
         <e p="Home" t="Include">

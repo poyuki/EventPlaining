@@ -65,7 +65,7 @@ using EventPlaining.Models;
             WriteLiteral("\r\n<h2 class=\"form-heading\">Подтверждение регистрации | ");
             EndContext();
             BeginContext(119, 59, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "28cdf64cae6141209100fb81fe9b79f4", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a0df18a0925c4eb7b71978628fcb7a3c", async() => {
                 BeginContext(163, 11, true);
                 WriteLiteral("К распсанию");
                 EndContext();

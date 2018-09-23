@@ -6,9 +6,10 @@ namespace EventPlaining.ViewModel.UserViewModels
     {
         public string Email { get; set; }
 
-        public SendSubmitEmailViewModel(bool successStatus, string message, UserSession userInSession) 
+        public SendSubmitEmailViewModel(bool successStatus, string message, UserSession userInSession, string email) 
             : base(successStatus,message,userInSession)
         {
+            this.Email = email;
         }
     }
 }

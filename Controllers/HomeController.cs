@@ -26,46 +26,15 @@ namespace EventPlaining.Controllers
         {
             
             
-            List<Event> events = _db.Events.ToList();
+            List<Event> events = _db.Events
+                .Include(e=>e.EventsUsers)
+                .ThenInclude(eu=>eu.User)
+                .ToList();
             IndexViewModel ivm = new IndexViewModel(true,"",GetUserInSession(), events);
             
             return View(ivm);
         }
 
-        public IActionResult AddEvent()
-        {
-            return View();
-        }
-        
-        [HttpPost]
-        public IActionResult SubmitEvent(Event ev)
-        {
-            
-            try
-            {
-                _db.Events.Add(ev);
-                _db.SaveChanges();
-                ViewData["Message"] = "Событие успешно добавленно!";
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.StackTrace);
-                ViewData["Message"] = "При добавлении события произошла ошибка!";
-            }
-            
-            return View();
-        }
-        
-        
-        
-        public IActionResult EventVisitors(long id)
-        {
-            
-            return View();
-        }
-        
-        
         
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

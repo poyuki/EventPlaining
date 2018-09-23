@@ -35,6 +35,13 @@ body {
         display: none;
     }
 }
+
+a{
+    color: darkblue;
+}
+a:hover{
+    color: #337ab7;
+}
 .heading{
     text-align: center;
 }
@@ -139,16 +146,7 @@ form i,#forForm i:hover{
     color: darkgoldenrod;
 }
 
-.visitor-list{
-    display:flex;
-    flex-wrap: wrap;
-    
-}
-.visitor-list>div{
-    padding: 10px;
-    border: 1px solid black;
-    margin: 10px;
-}
+
 .left-col{
     width:250px;
 }
@@ -203,4 +201,72 @@ tr:nth-child(even){
 }
 .form-heading{
     text-align: center;
+}
+
+.my-app-command-link{
+    cursor: pointer;
+    color:darkblue;
+}
+.my-app-command-link:hover{
+    text-decoration: underline;
+    color:#337ab7;
+}
+.login-form {
+    width: 300px;
+}
+
+.form-at-center{
+    margin: 0 auto;
+}
+.form-at-center div{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+.fail-message{
+    background: red;
+    text-align: center;
+    margin-bottom: 5px;
+}
+.profile-area{
+    display: none;
+}
+
+.visitor-list{
+    display:flex;
+    flex-wrap: wrap;
+
+}
+.followed-event-user{
+    position:relative;
+    padding: 15px;
+    border: 1px solid black;
+    margin: 10px;
+}
+.followed-event-user>i{
+    position: absolute;
+    font-size: 10px;
+    top:5px;
+    right:5px;
+    cursor: pointer;
+}
+.followed-event-user>i:hover{
+    color: goldenrod;
+}
+.profile-info{
+    width:300px;
+}
+.profile-info div{
+    justify-content: center;
+}
+.profile-info>div>div:first-child{
+    text-align: right!important;
+    margin-right:5px;
+}
+.profile-info>div>div:last-child{
+    margin-left:5px;
+}
+.profile-info>div>div{
+    width: 150px;
+    margin-bottom: 0;
 }

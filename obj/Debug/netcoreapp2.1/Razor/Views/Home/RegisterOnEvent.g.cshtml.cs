@@ -76,7 +76,7 @@ using EventPlaining.Models;
             WriteLiteral(" | ");
             EndContext();
             BeginContext(121, 38, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3c67471ae3ce4187a0eaa7217e0ed775", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4c54f00add5341ee823b43dcc909e75d", async() => {
                 BeginContext(143, 12, true);
                 WriteLiteral("К расписанию");
                 EndContext();
@@ -98,7 +98,7 @@ using EventPlaining.Models;
             WriteLiteral("</h2>\r\n<div class=\"regist-form-wrap\">\r\n    ");
             EndContext();
             BeginContext(202, 309, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6f345cee50a64c29adaf65e56d16c112", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b2adf868ef3740318b392b1377c65605", async() => {
                 BeginContext(273, 231, true);
                 WriteLiteral("\r\n        <button type=\"submit\" class=\"submit-event-button\">Submit</button>\r\n        <div>\r\n            <label for=\"first-name\">Логин</label>\r\n            <input required type=\"text\" id=\"first-name\" name=\"Lo\">\r\n        </div>\r\n    ");
                 EndContext();

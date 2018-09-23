@@ -5,11 +5,12 @@
 }
 
 <h2 class="form-heading">Вход</h2>
-<form method="post" asp-controller="User" asp-action="Login">
+<form method="post" asp-controller="User" class="login-form form-at-center" asp-action="Login">
     @if(!Model.SuccessStatus){
-        <div id="login-fail-message">@Model.Message</div>
+        <div id="login-fail-message fail-message">@Model.Message</div>
     }
-    <button type="submit" class="submit-event-button">Submit</button>
+    <button type="submit" class="submit-event-button">Войти</button>
+    <button title="Если вы еще не зарегистрировалиь, то милости просим" asp-action="Registration" class="submit-event-button">Зарегестрироваться</button>
     <div>
         <label for="login">Логин</label>
         <input id="login" type="text" name="login"/>

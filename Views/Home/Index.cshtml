@@ -1,30 +1,34 @@
-﻿
+﻿@using EventPlaining.ViewModel.HomeVewModels
+
+
 @{
     ViewData["Title"] = "Home Page";
+    IndexViewModel ivm = Model;
 }
 <div class="heading">
     <h1>Расписание событий</h1>
-    @if(Model.UserInSession.Role=="Admin"){
-        <a title="Добавить мероприятие" class="fas fa-plus" asp-controller="Home" asp-action="AddEvent"></a>
+    @if (ivm.UserInSession.Role == "Admin")
+    {
+        <a title="Добавить мероприятие" class="fas fa-plus" asp-controller="Admin" asp-action="AddEvent"></a>
     }
 </div>
 
 <div class="events-list">
-    @foreach (Event ev in Model.Events)
+    @foreach (Event ev in ivm.Events)
     {
         <div>
             <table id="@ev.Id">
                 <tbody>
                 <tr>
                     <td colspan="2" style="text-align: center; padding: 5px 0; font-size: 18px;">
-                    @if (Model.UserInSession.Role=="Admin")
-                    {
-                        <a title="Пользователи подписавшиеся на мероприятие" asp-action="EventVisitors" asp-route-id="@ev.Id">@ev.EventName</a>
-                    }
-                    else
-                    {
-                        <span>@ev.EventName</span>
-                    }
+                        @if (ivm.UserInSession.Role == "Admin")
+                        {
+                            <a title="Пользователи подписавшиеся на мероприятие" asp-controller="Admin" asp-action="EventFollowedUsers" asp-route-id="@ev.Id">@ev.EventName</a>
+                        }
+                        else
+                        {
+                            <span>@ev.EventName</span>
+                        }
                     </td>
                 </tr>
                 <tr>
@@ -35,7 +39,9 @@
                 {
                     <tr>
                         <td class="left-col">Максимальное количество посетителей</td>
-                        <td class="right-col">@ev.VisitorsCount</td>
+                        <td class="right-col">
+                            <span id="followers-count">@ev.EventsUsers.Count.ToString()</span>/@ev.VisitorsCount.ToString()
+                        </td>
                     </tr>
                 }
                 else
@@ -68,24 +74,28 @@
                 }
                 <tr>
                     <td colspan="2" style="text-align: center; padding: 5px 0;">
-                        @if (ev.VisitorsCount==0)
+                        @if (Model.UserInSession.Role != "Default")
                         {
-                             if (Model.UserInSession.Role == "Default")
-                             {
-                                 <a title="Регистрация открыта" asp-controller="User" asp-action="Registration">Зарегистрироваться на мероприятие</a>
-                             }
-                             else
-                             {
-                                 <a title="Регистрация открыта" asp-controller="User" asp-action="FollowEvent" asp-route-id="@ev.Id">Зарегистрироваться на мероприятие</a>
-                             }
+                            if (ev.EventsUsers.Any(eu => eu.UserId == ivm.UserInSession.Id))
+                            {
+                                <span type="button" title="Регистрация открыта" onclick="followOrCancelEvent(@ev.Id, event)" class="my-app-command-link">Отменить подписку</span>
+                            }
+                            else if (ev.VisitorsCount != 0)
+                            {
+                                <span type="button" title="Регистрация открыта" onclick="followOrCancelEvent(@ev.Id, event)" class="my-app-command-link follow-button">Подписаться на мероприятие</span>
+                            }
+                            else
+                            {
+                                 <span title="Регистрация на мероприятие закрыта" style="color: gray;">Подписаться на мероприятие</span>
+                            }
                         }
                         else
                         {
-                            <span title="Регистрация на мероприятие закрыта" style="color: gray;">Зарегистрироваться на мероприятие</span>
+                            <a title="Чтобы подписаться нужно вйоти в систему" asp-controller="User" asp-action="LoginForm" >Подписаться на мероприятие</a>
                         }
                     </td>
                 </tr>
-                <tfoot>
+                </tbody>
             </table>
         </div>
     }

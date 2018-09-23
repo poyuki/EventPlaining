@@ -9,6 +9,7 @@ namespace EventPlaining.Models
         public DbSet<Event> Events { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Profile> Profiles { get; set; }
+        public DbSet<EventsUsers> EventsUsers { get; set; }
         public DbSet<NotSubmitedUser> NotSubmitedUsers { get; set; }
         
         public EventPlainingDBContext(DbContextOptions opt) : base(opt)

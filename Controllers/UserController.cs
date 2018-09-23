@@ -27,11 +27,6 @@ namespace EventPlaining.Controllers
             return View(rvm);
         }
         
-        public JObject FollowEvent(long id)
-        {
-            return JObject.Parse("");;
-        }
-        
         public IActionResult SendSubmitEmail(NotSubmitedUser notSubmitedUser)
         {
             string viewMessage;
@@ -76,7 +71,7 @@ namespace EventPlaining.Controllers
                 viewMessage="При регистрации на мероприятие произошла ошибка!";
                 succesStatus = false;
             }
-            SendSubmitEmailViewModel ssevm=new SendSubmitEmailViewModel(succesStatus,viewMessage,GetUserInSession());
+            SendSubmitEmailViewModel ssevm=new SendSubmitEmailViewModel(succesStatus,viewMessage,GetUserInSession(),notSubmitedUser.Email);
             
             
             return View(ssevm);
@@ -285,6 +280,55 @@ namespace EventPlaining.Controllers
             _db.SaveChanges();
             
             return Redirect("~/User/Profile");
+        }
+
+        [HttpPost]
+        public JObject FollowEvent(long id)
+        {
+            bool successStatus;
+            string message;
+            try
+            {
+                Event Event =_db.Events
+                    .Include(e=>e.EventsUsers)
+                    .Single(e=>e.Id==id);
+                Event.EventsUsers.Add(new EventsUsers(Event.Id,GetUserInSession().Id));
+                _db.SaveChanges();
+                
+                successStatus = true;
+                message="Успешная подписка на мероприятие";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                successStatus = false;
+                message="При подписке на мероприяте произошла ошибка";
+            }
+
+            var Json = new {successStatus = successStatus, message = message, action="follow"};
+
+            JObject jObject = JObject.FromObject(Json);
+            
+            return jObject;
+        }
+        
+        [HttpPost]
+        public JObject CancelFollowingEvent(long id)
+        {
+            object obj;
+            try
+            {
+                EventsUsers eventsUsers = _db.EventsUsers.Single(eu=>eu.EventId==id&&eu.UserId==GetUserInSession().Id);
+                _db.EventsUsers.Remove(eventsUsers);
+                _db.SaveChanges();
+                obj = new {successStatus=true,action="cancel"};
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                obj = new {successStatus = false,action="cancel"};
+            }
+            return JObject.FromObject(obj);
         }
     }
 }

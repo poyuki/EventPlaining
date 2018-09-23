@@ -8,40 +8,41 @@
 @if (Model.SuccessStatus)
 {
     User user = Model.User;
-    <a asp-controller="User" asp-action="EditProfile" asp-route-id="@user.ProfileId">Редактировать Профиль</a>
-    <a asp-controller="User" asp-action="EditUser" asp-route-id="@user.Id">Редактировать Учетную запись</a>
-    <div>
+    
+    <div class="profile-info form-at-center">
+        <button asp-controller="User" class="submit-event-button" asp-action="EditProfile" asp-route-id="@user.ProfileId">Редактировать Профиль</button>
+        <button asp-controller="User" class="submit-event-button" asp-action="EditUser" asp-route-id="@user.Id">Редактировать Учетную запись</button>
         <div>
-            <span>Логин</span>
-            <span>@user.LogInName</span>
+            <div>Логин:</div>
+            <div>@user.LogInName</div>
         </div>
         <div>
-            <span>Почта</span>
-            <span>@user.Email</span>
+            <div>Почта:</div>
+            <div>@user.Email</div>
         </div>
         <div>
-            <span>Имя</span>
-            <span>@user.Profile.FirstName</span>
+            <div>Имя:</div>
+            <div>@user.Profile.FirstName</div>
         </div>
         <div>
-            <span>Фамилия</span>
-            <span>@user.Profile.SecondName</span>
+            <div>Фамилия:</div>
+            <div>@user.Profile.SecondName</div>
         </div>
         <div>
-            <span>Номер мобильного телефона</span>
-            <span>@user.Profile.PhoneNumber</span>
+            <div>Номер мобильного телефона:</div>
+            <div>@user.Profile.PhoneNumber</div>
         </div>
         <div>
-            <span>Пол</span>
-            <span>@user.Profile.Sec</span>
+            <div>Пол:</div>
+            <div>@user.Profile.Sec</div>
         </div>
         <div>
-            <span>Место работы</span>
-            <span>@user.Profile.WorkPlace</span>
+            <div>Место работы:</div>
+            <div>@user.Profile.WorkPlace</div>
         </div>
         <div>
-            <span>Место учебы</span>
-            <span>@user.Profile.EducPlace</span>
+            <div>Место учебы:</div>
+            <div>@user.Profile.EducPlace</div>
         </div>
     </div>
 }

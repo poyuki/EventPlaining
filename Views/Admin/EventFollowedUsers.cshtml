@@ -1,0 +1,40 @@
+﻿@using EventPlaining.ViewModel.AdminViewModels
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+    EventFollowedUsersViewModel efuvm = Model;
+}
+
+<h2>
+    Список участников
+    @if (efuvm.Event.VisitorsCount != 0)
+    {
+        <span>| Max: </span>@efuvm.Event.VisitorsCount
+    }
+    | <a asp-controller="Home" asp-action="Index">К расписанию</a>
+</h2>
+<h3>Подтвердившие участие | <span id="followers-count">@efuvm.Event.EventsUsers.Count</span></h3>
+<div class="visitor-list">
+    @if (efuvm.Event.EventsUsers.Count != 0)
+    {
+        foreach (EventsUsers eu in efuvm.Event.EventsUsers)
+        {
+            <div class="followed-event-user">
+                <i title="Отменить подписку пользователя на данное мероприятие" onclick="cancelFollowing(@eu.UserId,event)" class="fas fa-minus"></i>
+                <div>Логин пользователя: @eu.User.LogInName</div>
+                <div>Элетронная почта: @eu.User.Email</div>
+                <div onclick="getUserProfile(@eu.User.ProfileId, event)" class="my-app-command-link profile-button">Профиль пользователя</div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>К сожалению на данный момент нет участников подтвердивших регистрацию</p>
+    }
+</div>
+<div class="profile-area">
+    <h4>Профиль пользователя</h4>
+    <div id="profile-data"></div>
+    
+</div>

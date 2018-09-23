@@ -4,7 +4,7 @@
 }
 
 <div id="message"></div>
-<h2>Заполните форму чтобы добавить мероприятие | <a asp-action="Index">К расписанию</a></h2>
+<h2>Заполните форму чтобы добавить мероприятие | <a asp-controller="Home" asp-action="Index">К расписанию</a></h2>
 <div class="add-event-wrap">
     <form id="add-event-form" class="add-event-form" asp-action="SubmitEvent" onsubmit="submitForm(event)">
         <button type="submit" class="submit-event-button">Подтвердить мероприятие</button>

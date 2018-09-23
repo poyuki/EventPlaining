@@ -9,7 +9,7 @@ function openModal() {
     modal.css({
         'display':'flex',
         'margin-top':`-${modal.height()/2}px`,
-        'margin-left':`-${modal.width()/2}px`,
+        'margin-left':`-${modal.width()/2}px`
     });
 
 }
@@ -50,4 +50,108 @@ function getParams() {
         }
     });
     return res;
+}
+
+
+
+function getUserProfile(id,ev) {
+    let el=$(ev.currentTarget);
+    if (!el.hasClass('opened-profile')) {
+        $.post("/Admin/GetUserProfile", {id: id},(data)=>loadProfileData(data,el));
+    }else{
+        el.removeClass('opened-profile')
+            .text('Показать профиль пользователя');
+        $('.profile-area').hide();
+    }
+}
+function loadProfileData(data,el) {
+    let html,
+        profileDataArea=$('#profile-data'),
+        currentButton=el,
+        openedButton=$('.profile-button.opened-profile'),
+        profileArea=$('.profile-area');
+    
+    if (data.successStatus){
+        html = `
+    <div>
+        <span>Имя:</span>
+        <span>${(data.FirstName===null?"---":data.FirstName)}</span>
+    </div>
+    <div>
+        <span>Фамилия:</span>
+        <span>${(data.SecondName===null?"---":data.SecondName)}</span>
+    </div>
+    <div>
+        <span>Номер мобильного телефона:</span>
+        <span>${(data.PhoneNumber===null?"---":data.PhoneNumber)}</span>
+    </div>
+    <div>
+        <span>Возраст:</span>
+        <span>${(data.Age===0?"---":data.Age)}</span>
+    </div>
+    <div>
+        <span>Пол:</span>
+        <span>${(data.Sec===null?"---":data.Sec)}</span>
+    </div>
+    <div>
+        <span>Место работы:</span>
+        <span>${(data.WorkPlace===null?"---":data.WorkPlace)}</span>
+    </div>
+    <div>
+        <span>Место учебы:</span>
+        <span>${(data.EducPlace===null?"---":data.EducPlace)}</span>
+    </div>
+    <div>
+        <span>О себе:</span>
+        <span>${(data.About===null?"---":data.About)}</span>
+    </div>`;
+    }else{
+        html = "<div>К сожалению не удалось получить профиль пользователя</div>>";
+    }
+    openedButton
+        .text("Показать профиль пользователя")
+        .removeClass('opened-profile');
+    
+    currentButton
+        .text("Скрыть профиль пользователя")
+        .addClass('opened-profile');
+    profileDataArea.html(html);
+    if (profileArea.is(':hidden')){
+        profileArea.show()
+    } 
+}
+function  cancelFollowing(id,event){
+    let el=$(event.currentTarget),
+        userBox=el.closest('div.followed-event-user'),
+        followersCount=$('#followers-count');
+    $.post("/Admin/CancelEventUserFollowing",{id:id},(data)=>{
+        if (data.successStatus){
+            userBox.remove();
+            followersCount.text(parseInt(followersCount.text())-1);
+        }else{
+            console.log("Не вышло");
+        } 
+    });
+}
+
+
+function followOrCancelEvent(id,event) {
+    let el=$(event.currentTarget),
+        url=el.hasClass('follow-button')?"FollowEvent":"CancelFollowingEvent",
+        followersCount= $('#followers-count');
+    
+    $.post(`/User/${url}`,{id:id}, (data)=>{
+        if (data.successStatus) {
+            if (data.action === "cancel") {
+                el.addClass("follow-button");
+                el.text("Подписаться на мероприятие");
+                followersCount.text(parseInt(followersCount.text())-1);
+            }else{
+                el.text("Отменить подписку");
+                followersCount.text(parseInt(followersCount.text())+1);
+            }
+        }else {
+            console.log(data);
+        }
+    })
 }

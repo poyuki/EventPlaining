@@ -960,174 +960,168 @@
       <ColNames>Id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="241" parent="231" name="Id">
+    <column id="241" parent="231" name="EventId">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="242" parent="231" name="EventId">
+    <column id="242" parent="231" name="UserId">
       <Position>2</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="243" parent="231" name="UserId">
-      <Position>3</Position>
-      <DataType>bigint(20)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="244" parent="231" name="IX_EventsUsers_UserId">
+    <index id="243" parent="231" name="IX_EventsUsers_UserId">
       <ColNames>UserId</ColNames>
     </index>
-    <key id="245" parent="231" name="PRIMARY">
+    <key id="244" parent="231" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>EventId
 UserId</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="246" parent="231" name="FK_EventsUsers_Events_EventId">
+    <foreign-key id="245" parent="231" name="FK_EventsUsers_Events_EventId">
       <ColNames>EventId</ColNames>
       <RefSchemaName>eventplainingdb</RefSchemaName>
       <RefTableName>Events</RefTableName>
       <RefColNames>Id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="247" parent="231" name="FK_EventsUsers_Users_UserId">
+    <foreign-key id="246" parent="231" name="FK_EventsUsers_Users_UserId">
       <ColNames>UserId</ColNames>
       <RefSchemaName>eventplainingdb</RefSchemaName>
       <RefTableName>Users</RefTableName>
       <RefColNames>Id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="248" parent="232" name="Id">
+    <column id="247" parent="232" name="Id">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="249" parent="232" name="LogInName">
+    <column id="248" parent="232" name="LogInName">
       <Position>2</Position>
       <DataType>longtext|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="250" parent="232" name="Password">
+    <column id="249" parent="232" name="Password">
       <Position>3</Position>
       <DataType>longtext|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="251" parent="232" name="Email">
+    <column id="250" parent="232" name="Email">
       <Position>4</Position>
       <DataType>longtext|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="252" parent="232" name="Role">
+    <column id="251" parent="232" name="Role">
       <Position>5</Position>
       <DataType>longtext|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="253" parent="232" name="PRIMARY">
+    <key id="252" parent="232" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="254" parent="233" name="Id">
+    <column id="253" parent="233" name="Id">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="255" parent="233" name="FirstName">
+    <column id="254" parent="233" name="FirstName">
       <Position>2</Position>
       <DataType>longtext|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="256" parent="233" name="SecondName">
+    <column id="255" parent="233" name="SecondName">
       <Position>3</Position>
       <DataType>longtext|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="257" parent="233" name="Age">
+    <column id="256" parent="233" name="Age">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="258" parent="233" name="About">
+    <column id="257" parent="233" name="About">
       <Position>5</Position>
       <DataType>longtext|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="259" parent="233" name="Sec">
+    <column id="258" parent="233" name="Sec">
       <Position>6</Position>
       <DataType>longtext|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="260" parent="233" name="WorkPlace">
+    <column id="259" parent="233" name="WorkPlace">
       <Position>7</Position>
       <DataType>longtext|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="261" parent="233" name="EducPlace">
+    <column id="260" parent="233" name="EducPlace">
       <Position>8</Position>
       <DataType>longtext|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="262" parent="233" name="PhoneNumber">
+    <column id="261" parent="233" name="PhoneNumber">
       <Position>9</Position>
       <DataType>longtext|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="263" parent="233" name="PRIMARY">
+    <key id="262" parent="233" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="264" parent="234" name="Id">
+    <column id="263" parent="234" name="Id">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="265" parent="234" name="LogInName">
+    <column id="264" parent="234" name="LogInName">
       <Position>2</Position>
       <DataType>longtext|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="266" parent="234" name="Password">
+    <column id="265" parent="234" name="Password">
       <Position>3</Position>
       <DataType>longtext|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="267" parent="234" name="Email">
+    <column id="266" parent="234" name="Email">
       <Position>4</Position>
       <DataType>longtext|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="268" parent="234" name="Role">
+    <column id="267" parent="234" name="Role">
       <Position>5</Position>
       <DataType>longtext|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="269" parent="234" name="ProfileId">
+    <column id="268" parent="234" name="ProfileId">
       <Position>6</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="270" parent="234" name="IX_Users_ProfileId">
+    <index id="269" parent="234" name="IX_Users_ProfileId">
       <ColNames>ProfileId</ColNames>
     </index>
-    <key id="271" parent="234" name="PRIMARY">
+    <key id="270" parent="234" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="272" parent="234" name="FK_Users_Profiles_ProfileId">
+    <foreign-key id="271" parent="234" name="FK_Users_Profiles_ProfileId">
       <ColNames>ProfileId</ColNames>
       <RefSchemaName>eventplainingdb</RefSchemaName>
       <RefTableName>Profiles</RefTableName>
