@@ -10,6 +10,12 @@ namespace EventPlaining.Models
         public string EventName { get; set; }
         public string Params { get; set; }
         public int VisitorsCount { get; set; }
-        public List<Visitor> Visitors { get; set; }
+
+        public List<EventsUsers> EventsUsers { get; set; }
+
+        public Event()
+        {
+            this.EventsUsers=new List<EventsUsers>();
+        }
     }
 }

@@ -1,6 +1,4 @@
-using System;
-
-namespace EventPlaining.Models
+namespace EventPlaining.ViewModel
 {
     public class ErrorViewModel
     {

@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2 class="form-heading">Вход</h2>
+<form method="post" asp-controller="User" asp-action="Login">
+    @if(!Model.SuccessStatus){
+        <div id="login-fail-message">@Model.Message</div>
+    }
+    <button type="submit" class="submit-event-button">Submit</button>
+    <div>
+        <label for="login">Логин</label>
+        <input id="login" type="text" name="login"/>
+    </div>
+    <div>
+        <label for="password">Пароль</label>
+        <input id="password" type="password" name="password"/>
+    </div>
+</form>

@@ -1,0 +1,27 @@
+﻿@using Org.BouncyCastle.Crypto
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Список участников @if(@Model.Events.VisitorsCount!=0){ <span>| Max: </span>@Model.Events.VisitorsCount} | <a asp-action="Index">К расписанию</a></h2>
+<h3>Подтвердившие участие | @Model.Events.Visitors.Count</h3>
+<div class="visitor-list">
+    @if (Model.Events.Visitors.Count != 0)
+    {
+        foreach (User vi in Model.Events.Visitors)
+        {
+            <div>
+                <div>Имя: @vi</div>
+                <div>Фамилия: @vi</div>
+                <div>Возраст: @vi</div>
+                <div>Дополнительная информация: @vi</div>
+            </div>     
+        }
+    }
+    else
+    {
+        <p>К сожалению на данный момент нет участников подтвердивших регистрацию</p>
+    }
+</div>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EventPlaining.Models;
+using EventPlaining.Models.Session;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -27,24 +28,30 @@ namespace EventPlaining
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
+            /*services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+            });*/
 
             
-            services.AddDbContextPool<EventContext>( // replace "YourDbContext" with the class name of your DbContext
-                options => options.UseMySql("Server=localhost;Database=db;User=root;Password=;", // replace with your Connection String
+            services.AddDbContextPool<EventPlainingDBContext>( // replace "YourDbContext" with the class name of your DbContext
+                options => options.UseMySql("Server=localhost;Database=EventPlainingDB;User=root;Password=;", // replace with your Connection String
                     mysqlOptions =>
                     {
                         mysqlOptions.ServerVersion(new Version(5, 6, 37), ServerType.MySql); // replace with your Server Version and Type
                     }
                     
                 ));
-                
-            
+
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = ".EventPlaining.Session";
+                options.IdleTimeout=TimeSpan.FromMinutes(30);      
+                options.Cookie.HttpOnly = true;
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -60,11 +67,23 @@ namespace EventPlaining
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+            
 
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
-
+            //app.UseCookiePolicy();
+            app.UseSession();
+            app.Use(async (context, next) =>
+            {
+                if (!context.Session.Keys.Contains("userInSession"))
+                {
+                    UserSession userInSession = new UserSession();
+                    context.Session.Set<UserSession>("userInSession", userInSession);
+                }
+                await next();
+            });
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -5,29 +5,11 @@
 
 <h2>Регистрация на мероприятие: @Model.Event.EventName | <a asp-action="Index">К расписанию</a></h2>
 <div class="regist-form-wrap">
-    <form method="post" asp-action="SendSubmitEmail">
+    <form method="post" asp-controller="User" asp-action="SendSubmitEmail">
         <button type="submit" class="submit-event-button">Submit</button>
         <div>
-            <label for="first-name">Имя</label>
-            <input required type="text" id="first-name" name="FirstName">
+            <label for="first-name">Логин</label>
+            <input required type="text" id="first-name" name="Lo">
         </div>
-        <div>
-            <label for="second-name">Фамилия</label>
-            <input required type="text" id="second-name" name="SecondName">
-        </div>
-        <div>
-            <label for="age">Возраст</label>
-            <input required type="number" id="age" name="Age">
-        </div>
-        <div>
-            <label for="email">Адрес электронно почты</label>
-            <input required type="email" id="email" name="Email">
-        </div>
-        <div>
-            <label for="email" style="vertical-align: top;">О себе</label>
-            <textarea rows="1" style="max-width: 200px; min-width: 200px;" id="about" name="AboutInfo"></textarea>
-        </div>
-        <input type="hidden" id="eventParams" name="Submited" value="false">
-        <input type="hidden" id="eventDateTime" name="EventId" value="@Model.Event.Id">
     </form>
 </div>

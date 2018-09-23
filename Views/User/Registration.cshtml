@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2 class="form-heading">Регистрация  | <a asp-controller="Home" asp-action="Index">К расписанию</a></h2>
+
+<div class="regist-form-wrap">
+    <form method="post" asp-controller="User" asp-action="SendSubmitEmail">
+        <button type="submit" class="submit-event-button">Submit</button>
+        <div>
+            <label for="login">Логин</label>
+            <input required type="text" id="login" name="LogInName">
+        </div>
+        <div>
+            <label for="password">Пароль</label>
+            <input required type="password" id="password" name="Password">
+        </div>
+        <div>
+            <label for="email">Почта</label>
+            <input required type="email" id="email" name="Email">
+        </div>
+        
+    </form>
+</div>

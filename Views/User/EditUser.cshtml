@@ -1,0 +1,33 @@
+﻿@using EventPlaining.ViewModel.UserViewModels
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+    EditUserViewModel euvm = Model;
+}
+
+<h2>Редактирование Учетной записи</h2>
+@if (euvm.SuccessStatus)
+{
+    <div>
+        <form method="post" asp-controller="User" asp-action="SubmitEditUser">
+            <button class="submit-event-button" type="submit">Сохранить</button>
+            <div>
+                <label>Логин</label>
+                <input name="LogInName" value="@euvm.User.LogInName"/>
+            </div>
+            <div>
+                <label>Пароль</label>
+                <input name="Password" value="@euvm.User.Password"/>
+            </div>
+            <div>
+                <label>Элестронная почта</label>
+                <input name="Email" value="@euvm.User.Email"/>
+            </div>
+            <input type="hidden" name="Id" value="@euvm.User.Id"/>
+        </form>
+    </div>
+}
+else
+{
+    <div>@euvm.Message</div>
+}

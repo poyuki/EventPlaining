@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Ваш Профиль</h2>
+@if (Model.SuccessStatus)
+{
+    User user = Model.User;
+    <a asp-controller="User" asp-action="EditProfile" asp-route-id="@user.ProfileId">Редактировать Профиль</a>
+    <a asp-controller="User" asp-action="EditUser" asp-route-id="@user.Id">Редактировать Учетную запись</a>
+    <div>
+        <div>
+            <span>Логин</span>
+            <span>@user.LogInName</span>
+        </div>
+        <div>
+            <span>Почта</span>
+            <span>@user.Email</span>
+        </div>
+        <div>
+            <span>Имя</span>
+            <span>@user.Profile.FirstName</span>
+        </div>
+        <div>
+            <span>Фамилия</span>
+            <span>@user.Profile.SecondName</span>
+        </div>
+        <div>
+            <span>Номер мобильного телефона</span>
+            <span>@user.Profile.PhoneNumber</span>
+        </div>
+        <div>
+            <span>Пол</span>
+            <span>@user.Profile.Sec</span>
+        </div>
+        <div>
+            <span>Место работы</span>
+            <span>@user.Profile.WorkPlace</span>
+        </div>
+        <div>
+            <span>Место учебы</span>
+            <span>@user.Profile.EducPlace</span>
+        </div>
+    </div>
+}
+else
+{
+    <div>@Model.Message</div>
+}

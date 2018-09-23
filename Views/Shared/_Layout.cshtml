@@ -33,12 +33,20 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Расписание</a></li>
+                    @if (Model.UserInSession.LogedIn)
+                    {
+                        <li><a asp-area="" asp-controller="User" asp-action="Logout">Выйти</a></li>
+                        <li><a asp-area="" asp-controller="User" asp-action="Profile">Профиль</a></li>
+                    }else{
+                        <li><a asp-area="" asp-controller="User" asp-action="Registration">Регистрация</a></li>
+                        <li><a asp-area="" asp-controller="User" asp-action="LoginForm">Войти</a></li>
+                    }
                 </ul>
             </div>
         </div>
     </nav>
 
-    <partial name="_CookieConsentPartial" />
+    
 
     <div class="container body-content">
         @RenderBody()

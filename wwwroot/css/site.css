@@ -201,3 +201,6 @@ tr:nth-child(even){
 .regist-form-wrap div>*{
     width: 200px;
 }
+.form-heading{
+    text-align: center;
+}

@@ -1,0 +1,53 @@
+﻿@using EventPlaining.ViewModel.UserViewModels
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+    EditProfileViewModel edvm = Model;
+}
+
+<h2>Редактирование профиля </h2>
+@if (edvm.SuccessStatus)
+{
+    <div>
+        <form method="post" asp-controller="User" asp-action="SubmitEditProfile">
+            <button class="submit-event-button" type="submit">Сохранить</button>
+            <div>
+                <label>Имя</label>
+                <input name="FirstName" value="@edvm.Profile.FirstName"/>
+            </div>
+            <div>
+                <label>Фамилия</label>
+                <input name="SecondName" value="@edvm.Profile.SecondName"/>
+            </div>
+            <div>
+                <label>Возраст</label>
+                <input name="Age" value="@edvm.Profile.Age"/>
+            </div>
+            <div>
+                <label>Пол</label>
+                <input name="Sec" value="@edvm.Profile.Sec"/>
+            </div>
+            <div>
+                <label>Номер мобильного телефона</label>
+                <input name="PhoneNumber" value="@edvm.Profile.PhoneNumber"/>
+            </div>
+            <div>
+                <label>Место работы</label>
+                <input name="WorkPlace" value="@edvm.Profile.WorkPlace"/>
+            </div>
+            <div>
+                <label>Место учебы</label>
+                <input name="EducPlace" value="@edvm.Profile.EducPlace"/>
+            </div>
+            <div>
+                <label>О себе</label>
+                <input name="About" value="@edvm.Profile.About"/>
+            </div>
+            <input type="hidden" name="Id" value="@edvm.Profile.Id"/>
+        </form>
+    </div>
+}
+else
+{
+    <div>@edvm.Message</div>
+}
