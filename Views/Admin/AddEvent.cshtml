@@ -1,10 +1,12 @@
 ﻿@{
     ViewBag.Title = "Добавление мероприятия";
     Layout = "_Layout";
+    DateTime now =DateTime.Now;
 }
 
 <div id="message"></div>
 <h2>Заполните форму чтобы добавить мероприятие | <a asp-controller="Home" asp-action="Index">К расписанию</a></h2>
+@now
 <div class="add-event-wrap">
     <form id="add-event-form" class="add-event-form" asp-action="SubmitEvent" onsubmit="submitForm(event)">
         <button type="submit" class="submit-event-button">Подтвердить мероприятие</button>
@@ -22,11 +24,11 @@
     <div id="forForm">
         <div class="form-el">
             <label for="EventDate">Дата мероприятия:</label>
-            <input required type="date" id="EventDate" name="EventDate">
+            <input required type="date" id="EventDate" name="EventDate" >
         </div>
         <div class="form-el">
             <label for="EventTime">Время мероприятия:</label>
-            <input required type="time" id="EventTime" name="EventTime">
+            <input required type="time" id="EventTime" name="EventTime" value="@now">
         </div>
         <i class="fas fa-plus" onclick="openModal()"></i>
     </div>

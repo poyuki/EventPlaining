@@ -35,9 +35,17 @@ function deleteParam(ev) {
 }
 
 function submitForm(ev) {
-    let params=getParams();
+    let params=getParams(),
+        eventDateInput=$('#EventDate'),
+        dateTime,now=new Date();
     $('#eventParams').val(params);
-    let dateTime=`${$('#EventDate').val()} ${$('#EventTime').val()}`;
+    if (eventDateInput.val()===''){
+        let month=now.getMonth()<9?`0${(now.getMonth())+1}`:(now.getMonth())+1;
+        dateTime=`${now.getFullYear()}-${month}-${noew.getDate()} ${now.getHours()}:${now.getMinutes()}`
+    } else{
+        dateTime=`${eventDateInput.val()} ${$('#EventTime').val()}`;
+    }
+    
     $('#eventDateTime').val(dateTime);
 }
 
@@ -46,7 +54,7 @@ function getParams() {
     params.each((i, el) => {
         let elem = $(el);
         if ((elem.children('input')).val() !== '') {
-            res += `${(elem.children('label')).text()}:${(elem.children('input')).val()};`
+            res += `${(elem.children('label')).text()}${(elem.children('input')).val()};`
         }
     });
     return res;
@@ -109,7 +117,7 @@ function loadProfileData(data,el) {
         html = "<div>К сожалению не удалось получить профиль пользователя</div>>";
     }
     openedButton
-        .text("Показать профиль пользователя")
+        .text("Профиль пользователя")
         .removeClass('opened-profile');
     
     currentButton
@@ -120,11 +128,11 @@ function loadProfileData(data,el) {
         profileArea.show()
     } 
 }
-function  cancelFollowing(id,event){
+function  cancelFollowing(userId,eventId,event){
     let el=$(event.currentTarget),
         userBox=el.closest('div.followed-event-user'),
         followersCount=$('#followers-count');
-    $.post("/Admin/CancelEventUserFollowing",{id:id},(data)=>{
+    $.post("/Admin/CancelEventUserFollowing",{userId:userId,eventId:eventId},(data)=>{
         if (data.successStatus){
             userBox.remove();
             followersCount.text(parseInt(followersCount.text())-1);
@@ -138,7 +146,7 @@ function  cancelFollowing(id,event){
 function followOrCancelEvent(id,event) {
     let el=$(event.currentTarget),
         url=el.hasClass('follow-button')?"FollowEvent":"CancelFollowingEvent",
-        followersCount= $('#followers-count');
+        followersCount= $(`#followers-count-${id}`);
     
     $.post(`/User/${url}`,{id:id}, (data)=>{
         if (data.successStatus) {
@@ -147,10 +155,24 @@ function followOrCancelEvent(id,event) {
                 el.text("Подписаться на мероприятие");
                 followersCount.text(parseInt(followersCount.text())-1);
             }else{
+                el.removeClass("follow-button");
                 el.text("Отменить подписку");
                 followersCount.text(parseInt(followersCount.text())+1);
             }
         }else {
+            console.log(data);
+        }
+    })
+}
+function removeEventFromProfile(id, ev) {
+    let eventBlock=$(ev.currentTarget).closest('.event'),
+        count=$('#profile-folowed-event-count');
+    
+    $.post("/User/CancelFollowingEvent",{id:id},(data)=>{
+        if (data.successStatus) {
+            eventBlock.remove();
+            count.text(parseInt(count.text())-1);
+        }else{
             console.log(data);
         }
     })

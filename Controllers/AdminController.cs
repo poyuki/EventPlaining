@@ -52,7 +52,22 @@ namespace EventPlaining.Controllers
             return View(sevm);
         }
         
-        
+        public IActionResult DeleteEvent(long id)
+        {
+            try
+            {
+                Event ev = _db.Events.Find(id);
+                _db.Events.Remove(ev);
+                _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Redirect($"~Admin/EventFollowedUsers/{id}");
+            }
+            return Redirect("~/Home/Index");
+        }
         
         public IActionResult EventFollowedUsers(long id)
         {
@@ -104,12 +119,12 @@ namespace EventPlaining.Controllers
             return JObject.FromObject(obj);
         }
         [HttpPost]
-        public JObject CancelEventUserFollowing(long id)
+        public JObject CancelEventUserFollowing(long userId,long eventId)
         {
             object obj;
             try
             {
-                EventsUsers eventsUsers = _db.EventsUsers.Single(eu=>eu.UserId==id);
+                EventsUsers eventsUsers = _db.EventsUsers.Single(eu=>eu.UserId==userId&&eu.EventId==eventId);
                 _db.EventsUsers.Remove(eventsUsers);
                 _db.SaveChanges();
                 obj = new {successStatus=true,};

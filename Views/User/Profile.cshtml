@@ -1,17 +1,19 @@
-﻿
+﻿@using EventPlaining.ViewModel.UserViewModels
+
 @{
-    ViewBag.Title = "title";
+    ProfileViewModel pvm = Model;
+    ViewBag.Title =$"Профиль пользователя {pvm.User.LogInName}";
     Layout = "_Layout";
 }
 
-<h2>Ваш Профиль</h2>
+<h2 style="text-align: center;">Ваш Профиль</h2>
 @if (Model.SuccessStatus)
 {
     User user = Model.User;
     
-    <div class="profile-info form-at-center">
-        <button asp-controller="User" class="submit-event-button" asp-action="EditProfile" asp-route-id="@user.ProfileId">Редактировать Профиль</button>
-        <button asp-controller="User" class="submit-event-button" asp-action="EditUser" asp-route-id="@user.Id">Редактировать Учетную запись</button>
+    <div class="profile-info">
+        <a asp-controller="User" class="submit-event-button" asp-action="EditProfile" asp-route-id="@user.ProfileId">Редактировать Профиль</a>
+        <a asp-controller="User" class="submit-event-button" asp-action="EditUser" asp-route-id="@user.Id">Редактировать Учетную запись</a>
         <div>
             <div>Логин:</div>
             <div>@user.LogInName</div>
@@ -44,6 +46,45 @@
             <div>Место учебы:</div>
             <div>@user.Profile.EducPlace</div>
         </div>
+        <div>
+            <div>О себе:</div>
+            <div>@user.Profile.About</div>
+        </div>
+    </div>
+    <hr/>
+    <h4>Мероприятия на которые вы подписались (их количество: <span id="profile-folowed-event-count">@pvm.User.EventsUsers.Count</span>)</h4>
+    <div id="events-info-area">
+        @foreach (EventsUsers eu in pvm.User.EventsUsers)
+        {
+            <div class="event followed-event-user">
+                <i class="fas fa-minus" title="Отписаться от этого мероприятия" onclick="removeEventFromProfile(@eu.Event.Id,event)"></i>
+                <div>Название мероприятия: @eu.Event.EventName</div>
+                <div>Дата и время проведения: @eu.Event.EventDateTime</div>
+                @if (eu.Event.VisitorsCount != 0)
+                {
+                    <div>Максимально количество посетителей: @eu.Event.VisitorsCount</div>    
+                }
+                @if (eu.Event.Params != null)
+                {
+                    string[] param = eu.Event.Params.Split(';');
+                    Dictionary<string, string> p = new Dictionary<string, string>();
+                    foreach (string s in param)
+                    {
+                        if (s != "")
+                        {
+                            string[] r = s.Split(':');
+                            p.Add(r[0], r[1]);
+                        }
+                    }
+
+                    foreach (KeyValuePair<string, string> keyValue in p)
+                    {
+                        <div>@keyValue.Key: @keyValue.Value</div>
+                    }
+                }
+                
+            </div>            
+        }
     </div>
 }
 else

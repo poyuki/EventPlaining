@@ -177,6 +177,8 @@ tr:nth-child(even){
     width:234px;
 }
 .submit-event-button{
+    display: block;
+    text-align: center;
     background-color: dodgerblue;
     border: none;
     color: white;
@@ -187,6 +189,7 @@ tr:nth-child(even){
 .submit-event-button:hover{
     background-color: blue;
     color: goldenrod;
+    text-decoration: none;
 }
 .add-event-wrap{
     margin: 0 auto;
@@ -254,7 +257,8 @@ tr:nth-child(even){
     color: goldenrod;
 }
 .profile-info{
-    width:300px;
+    margin: 0 auto;
+    width:415px;
 }
 .profile-info div{
     justify-content: center;
@@ -267,6 +271,11 @@ tr:nth-child(even){
     margin-left:5px;
 }
 .profile-info>div>div{
-    width: 150px;
+    width: 200px;
     margin-bottom: 0;
+    display: inline-block;
+}
+#events-info-area{
+    display:flex;
+    flex-wrap: wrap;
 }

@@ -1,14 +1,14 @@
 ﻿@using EventPlaining.ViewModel.UserViewModels
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Редактирование Учетной записи";
     Layout = "_Layout";
     EditUserViewModel euvm = Model;
 }
 
-<h2>Редактирование Учетной записи</h2>
+<h2 style="text-align: center;">Редактирование Учетной записи | <a asp-action="Profile" asp-route-id="@euvm.User.Id">Назад к профилю</a></h2>
 @if (euvm.SuccessStatus)
 {
-    <div>
+    <div style="width: 350px;" class="form-at-center">
         <form method="post" asp-controller="User" asp-action="SubmitEditUser">
             <button class="submit-event-button" type="submit">Сохранить</button>
             <div>

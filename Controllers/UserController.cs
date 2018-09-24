@@ -181,7 +181,11 @@ namespace EventPlaining.Controllers
                 ProfileViewModel pvm;
                 try
                 {
-                    User user = _db.Users.Include(u => u.Profile).Single(u => u.Id == userInSession.Id);
+                    User user = _db.Users
+                        .Include(u => u.Profile)
+                        .Include(u=>u.EventsUsers)
+                        .ThenInclude(eu=>eu.Event)
+                        .Single(u => u.Id == userInSession.Id);
                     message = "Все отлично вот ваши профиль!";
                     pvm = new ProfileViewModel(true, message, GetUserInSession(), user);
                 }

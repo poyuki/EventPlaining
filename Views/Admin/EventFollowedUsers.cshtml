@@ -1,9 +1,9 @@
 ﻿@using EventPlaining.ViewModel.AdminViewModels
 
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
     EventFollowedUsersViewModel efuvm = Model;
+    ViewBag.Title = efuvm.Event.EventName;
+    Layout = "_Layout";
 }
 
 <h2>
@@ -13,15 +13,17 @@
         <span>| Max: </span>@efuvm.Event.VisitorsCount
     }
     | <a asp-controller="Home" asp-action="Index">К расписанию</a>
+    |
+    <a asp-controller="Admin" asp-action="DeleteEvent" asp-route-id="@efuvm.Event.Id">Удалить мероприятие</a> 
 </h2>
-<h3>Подтвердившие участие | <span id="followers-count">@efuvm.Event.EventsUsers.Count</span></h3>
+<h3>Пользователи подписавшиеся на мероприятие | <span id="followers-count">@efuvm.Event.EventsUsers.Count</span></h3>
 <div class="visitor-list">
     @if (efuvm.Event.EventsUsers.Count != 0)
     {
         foreach (EventsUsers eu in efuvm.Event.EventsUsers)
         {
             <div class="followed-event-user">
-                <i title="Отменить подписку пользователя на данное мероприятие" onclick="cancelFollowing(@eu.UserId,event)" class="fas fa-minus"></i>
+                <i title="Отменить подписку пользователя на данное мероприятие" onclick="cancelFollowing(@eu.UserId,@eu.EventId,event)" class="fas fa-minus"></i>
                 <div>Логин пользователя: @eu.User.LogInName</div>
                 <div>Элетронная почта: @eu.User.Email</div>
                 <div onclick="getUserProfile(@eu.User.ProfileId, event)" class="my-app-command-link profile-button">Профиль пользователя</div>

@@ -2,7 +2,7 @@
 
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "EventPlaining";
     IndexViewModel ivm = Model;
 }
 <div class="heading">
@@ -40,7 +40,7 @@
                     <tr>
                         <td class="left-col">Максимальное количество посетителей</td>
                         <td class="right-col">
-                            <span id="followers-count">@ev.EventsUsers.Count.ToString()</span>/@ev.VisitorsCount.ToString()
+                            <span id="followers-count-@ev.Id">@ev.EventsUsers.Count.ToString()</span>/@ev.VisitorsCount.ToString()
                         </td>
                     </tr>
                 }
@@ -80,18 +80,18 @@
                             {
                                 <span type="button" title="Регистрация открыта" onclick="followOrCancelEvent(@ev.Id, event)" class="my-app-command-link">Отменить подписку</span>
                             }
-                            else if (ev.VisitorsCount != 0)
+                            else if (ev.VisitorsCount == ev.EventsUsers.Count&&ev.VisitorsCount!=0)
                             {
-                                <span type="button" title="Регистрация открыта" onclick="followOrCancelEvent(@ev.Id, event)" class="my-app-command-link follow-button">Подписаться на мероприятие</span>
+                                <span title="Регистрация на мероприятие закрыта" style="color: gray;">Подписаться на мероприятие</span>
                             }
                             else
                             {
-                                 <span title="Регистрация на мероприятие закрыта" style="color: gray;">Подписаться на мероприятие</span>
+                                <span type="button" title="Регистрация открыта" onclick="followOrCancelEvent(@ev.Id, event)" class="my-app-command-link follow-button">Подписаться на мероприятие</span>
                             }
                         }
                         else
                         {
-                            <a title="Чтобы подписаться нужно вйоти в систему" asp-controller="User" asp-action="LoginForm" >Подписаться на мероприятие</a>
+                            <a title="Чтобы подписаться нужно войти в систему" asp-controller="User" asp-action="LoginForm" >Подписаться на мероприятие</a>
                         }
                     </td>
                 </tr>

@@ -1,10 +1,10 @@
 ﻿{
   "version": "1.0.0",
   "restore": {
-    "projectUniqueName": "D:\\CBTtest\\EventPlaining.csproj",
+    "projectUniqueName": "D:\\Poyu\\CBTtest\\EventPlaining.csproj",
     "projectName": "EventPlaining",
-    "projectPath": "D:\\CBTtest\\EventPlaining.csproj",
-    "outputPath": "D:\\CBTtest\\obj\\",
+    "projectPath": "D:\\Poyu\\CBTtest\\EventPlaining.csproj",
+    "outputPath": "D:\\Poyu\\CBTtest\\obj\\",
     "projectStyle": "PackageReference",
     "fallbackFolders": [
       "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
