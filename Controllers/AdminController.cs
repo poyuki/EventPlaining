@@ -69,6 +69,26 @@ namespace EventPlaining.Controllers
             return Redirect("~/Home/Index");
         }
         
+        [HttpDelete]
+        public JObject DeleteEventAjax(long id)
+        {
+            object json;
+            try
+            {
+                Event ev = _db.Events.Find(id);
+                _db.Events.Remove(ev);
+                _db.SaveChanges();
+                json = new {successStatus = true};
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                json = new {successStatus = false};
+            }
+            return JObject.FromObject(json);
+        }
+        
         public IActionResult EventFollowedUsers(long id)
         {
             if (GetUserInSession().Role != "Admin")

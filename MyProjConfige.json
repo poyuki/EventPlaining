@@ -1,0 +1,9 @@
+﻿{
+  "smptSetings":{
+    "host":"smtp.gmail.com",
+    "port":465,
+    "ssl":true,
+    "authenticateLogin":"testmailpoyu@gmail.com",
+    "authenticatePasword":"123993pki"
+  }
+}

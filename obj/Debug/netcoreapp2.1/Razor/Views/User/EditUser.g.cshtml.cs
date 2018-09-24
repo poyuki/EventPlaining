@@ -72,7 +72,7 @@ using EventPlaining.ViewModel.UserViewModels;
             WriteLiteral("\r\n<h2 style=\"text-align: center;\">Редактирование Учетной записи | ");
             EndContext();
             BeginContext(236, 72, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6799c73a905c4fd29cd07a54a19922e8", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "89e9657380b94c11ad87c79ffd64136f", async() => {
                 BeginContext(289, 15, true);
                 WriteLiteral("Назад к профилю");
                 EndContext();
@@ -116,7 +116,7 @@ using EventPlaining.ViewModel.UserViewModels;
             WriteLiteral("    <div style=\"width: 350px;\" class=\"form-at-center\">\r\n        ");
             EndContext();
             BeginContext(408, 687, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f9d64d83313144548998e3427f10db90", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d417074b47254ef3ae513fda22f82baf", async() => {
                 BeginContext(478, 180, true);
                 WriteLiteral("\r\n            <button class=\"submit-event-button\" type=\"submit\">Сохранить</button>\r\n            <div>\r\n                <label>Логин</label>\r\n                <input name=\"LogInName\"");
                 EndContext();

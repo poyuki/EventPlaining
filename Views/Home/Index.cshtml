@@ -16,87 +16,82 @@
 <div class="events-list">
     @foreach (Event ev in ivm.Events)
     {
-        <div>
-            <table id="@ev.Id">
-                <tbody>
-                <tr>
-                    <td colspan="2" style="text-align: center; padding: 5px 0; font-size: 18px;">
-                        @if (ivm.UserInSession.Role == "Admin")
-                        {
-                            <a title="Пользователи подписавшиеся на мероприятие" asp-controller="Admin" asp-action="EventFollowedUsers" asp-route-id="@ev.Id">@ev.EventName</a>
-                        }
-                        else
-                        {
-                            <span>@ev.EventName</span>
-                        }
-                    </td>
-                </tr>
-                <tr>
-                    <td class="left-col">Дата и время проведения</td>
-                    <td class="right-col">@ev.EventDateTime.ToString("f")</td>
-                </tr>
-                @if (ev.VisitorsCount != 0)
+        <div class="event-on-index">
+            <i class="fas fa-minus" title="Удалить событие" onclick="deleteEvent(@ev.Id,event)"></i>
+            <div>
+                @if (ivm.UserInSession.Role == "Admin")
                 {
-                    <tr>
-                        <td class="left-col">Максимальное количество посетителей</td>
-                        <td class="right-col">
-                            <span id="followers-count-@ev.Id">@ev.EventsUsers.Count.ToString()</span>/@ev.VisitorsCount.ToString()
-                        </td>
-                    </tr>
+                    <a title="Пользователи подписавшиеся на мероприятие"
+                       asp-controller="Admin" asp-action="EventFollowedUsers"
+                       asp-route-id="@ev.Id">
+                        @ev.EventName
+                    </a>
                 }
                 else
                 {
-                    <tr>
-                        <td class="left-col">Максимальное количество посетителей</td>
-                        <td class="right-col">Неограниченно</td>
-                    </tr>
+                    <span>@ev.EventName</span>
                 }
-                @if (ev.Params != null)
+            </div>
+            <div>
+                <div>Дата и время проведения:</div>
+                <div>@ev.EventDateTime.ToString("f")</div>
+            </div>
+            @if (ev.VisitorsCount != 0)
+            {
+                <div>
+                    <div>Максимальное количество посетителей:</div>
+                    <div><span id="followers-count-@ev.Id">@ev.EventsUsers.Count.ToString()</span>/@ev.VisitorsCount.ToString()</div>
+                </div>
+            }
+            else
+            {
+                <div>
+                    <div>Максимальное количество посетителей:</div>
+                    <div>Неограниченно</div>
+                </div>
+            }
+            @if (ev.Params != null)
+            {
+                string[] param = ev.Params.Split(';');
+                Dictionary<string, string> p = new Dictionary<string, string>();
+                foreach (string s in param)
                 {
-                    string[] param = ev.Params.Split(';');
-                    Dictionary<string, string> p = new Dictionary<string, string>();
-                    foreach (string s in param)
+                    if (s != "")
                     {
-                        if (s != "")
-                        {
-                            string[] r = s.Split(':');
-                            p.Add(r[0], r[1]);
-                        }
-                    }
-
-                    foreach (KeyValuePair<string, string> keyValue in p)
-                    {
-                        <tr>
-                            <td class="left-col">@keyValue.Key</td>
-                            <td class="right-col">@keyValue.Value</td>
-                        </tr>
+                        string[] r = s.Split(':');
+                        p.Add(r[0], r[1]);
                     }
                 }
-                <tr>
-                    <td colspan="2" style="text-align: center; padding: 5px 0;">
-                        @if (Model.UserInSession.Role != "Default")
-                        {
-                            if (ev.EventsUsers.Any(eu => eu.UserId == ivm.UserInSession.Id))
-                            {
-                                <span type="button" title="Регистрация открыта" onclick="followOrCancelEvent(@ev.Id, event)" class="my-app-command-link">Отменить подписку</span>
-                            }
-                            else if (ev.VisitorsCount == ev.EventsUsers.Count&&ev.VisitorsCount!=0)
-                            {
-                                <span title="Регистрация на мероприятие закрыта" style="color: gray;">Подписаться на мероприятие</span>
-                            }
-                            else
-                            {
-                                <span type="button" title="Регистрация открыта" onclick="followOrCancelEvent(@ev.Id, event)" class="my-app-command-link follow-button">Подписаться на мероприятие</span>
-                            }
-                        }
-                        else
-                        {
-                            <a title="Чтобы подписаться нужно войти в систему" asp-controller="User" asp-action="LoginForm" >Подписаться на мероприятие</a>
-                        }
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+
+                foreach (KeyValuePair<string, string> keyValue in p)
+                {
+                    <div>
+                        <div>@keyValue.Key:</div>
+                        <div>@keyValue.Value</div>
+                    </div>
+                }
+            }
+            <div>
+                @if (Model.UserInSession.Role != "Default")
+                {
+                    if (ev.EventsUsers.Any(eu => eu.UserId == ivm.UserInSession.Id))
+                    {
+                        <span type="button" title="Регистрация открыта" onclick="followOrCancelEvent(@ev.Id, event)" class="my-app-command-link">Отменить подписку</span>
+                    }
+                    else if (ev.VisitorsCount == ev.EventsUsers.Count && ev.VisitorsCount != 0)
+                    {
+                        <span title="Регистрация на мероприятие закрыта" style="color: gray;">Подписаться на мероприятие</span>
+                    }
+                    else
+                    {
+                        <span type="button" title="Регистрация открыта" onclick="followOrCancelEvent(@ev.Id, event)" class="my-app-command-link follow-button">Подписаться на мероприятие</span>
+                    }
+                }
+                else
+                {
+                    <a title="Чтобы подписаться нужно войти в систему" asp-controller="User" asp-action="LoginForm">Подписаться на мероприятие</a>
+                }
+            </div>
         </div>
     }
 </div>

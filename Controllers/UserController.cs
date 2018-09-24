@@ -33,6 +33,13 @@ namespace EventPlaining.Controllers
             bool succesStatus;
             try
             {
+                ConfigModel conf;
+                using (System.IO.StreamReader r = new System.IO.StreamReader("MyProjConfige.json"))
+                {
+                    string json = r.ReadToEnd();
+                    conf = Newtonsoft.Json.JsonConvert.DeserializeObject<ConfigModel>(json);
+                }
+                
                 _db.NotSubmitedUsers.Add(notSubmitedUser);
                 _db.SaveChanges();
                 viewMessage =
@@ -52,12 +59,13 @@ namespace EventPlaining.Controllers
 Вый зарегестрировались на одно из меропритий в нашей системе.
 Пожалуйста, подтвердите регистрацию перейдя по ссылке {linkToEvent}/User/SubmitRegistration?id={notSubmitedUser.Id}"
                 };
+                
                 using (var client = new SmtpClient())
                 {
                     client.ServerCertificateValidationCallback = (s, c, h, e) => true;
                     
-                    client.Connect("smtp.gmail.com", 465, true);
-                    client.Authenticate ("testmailpoyu@gmail.com", "123993pki");
+                    client.Connect(conf.smptSetings.host,conf.smptSetings.port,conf.smptSetings.ssl);
+                    client.Authenticate(conf.smptSetings.authenticateLogin,conf.smptSetings.authenticatePasword);
 
                     client.Send (message);
                     client.Disconnect (true);
@@ -289,6 +297,8 @@ namespace EventPlaining.Controllers
         [HttpPost]
         public JObject FollowEvent(long id)
         {
+            
+           
             bool successStatus;
             string message;
             try

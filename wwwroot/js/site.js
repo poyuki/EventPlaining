@@ -177,3 +177,13 @@ function removeEventFromProfile(id, ev) {
         }
     })
 }
+
+function deleteEvent(id, ev) {
+    let el=$(ev.currentTarget),
+        eventBox=el.closest('.event-on-index');
+    $.post("/Admin/DeleteEventAjax",{id:id},(data)=>{
+        if (data.sucssStatus) {
+            eventBox.remove();
+        }
+    })
+}

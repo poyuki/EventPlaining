@@ -98,7 +98,7 @@ using EventPlaining.ViewModel.AdminViewModels;
             WriteLiteral("    | ");
             EndContext();
             BeginContext(323, 60, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "504a17fffd2b4badb704a1cd509c27cd", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "34fd0ad95f8741bba5e73df1c813a941", async() => {
                 BeginContext(367, 12, true);
                 WriteLiteral("К расписанию");
                 EndContext();
@@ -122,7 +122,7 @@ using EventPlaining.ViewModel.AdminViewModels;
             WriteLiteral("\r\n    |\r\n    ");
             EndContext();
             BeginContext(396, 105, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6fe1ba2c5fe94c3c840f18b6093a9a0c", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e922ac595e3a45c4a22922aa5be25406", async() => {
                 BeginContext(478, 19, true);
                 WriteLiteral("Удалить мероприятие");
                 EndContext();

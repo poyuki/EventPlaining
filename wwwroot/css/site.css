@@ -156,17 +156,7 @@ form i,#forForm i:hover{
 tr:nth-child(even){
     background-color: lightgrey;
 }
-.events-list{
-    width: 500px;
-    margin: 0 auto;
-}
-.events-list>div{
-    border-bottom:solid black 1px;
-    padding: 10px 0;
-}
-.events-list>div:last-child{
-    border: none;
-}
+
 .form-el>*{
     width: 250px;
 }
@@ -278,4 +268,31 @@ tr:nth-child(even){
 #events-info-area{
     display:flex;
     flex-wrap: wrap;
+}
+
+.events-list{
+    display: flex;
+    flex-wrap: wrap;
+}
+.event-on-index{
+    margin: 10px;
+    border: solid black 1px;
+    width: 300px;
+    padding: 10px;
+    position: relative;
+}
+.event-on-index>i{
+    position: absolute;
+    top:5px;
+    right: 5px;
+}
+.event-on-index>i:hover{
+    color: goldenrod;
+}
+.event-on-index>div{
+    display: flex;
+    
+}
+.event-on-index>div>div{
+    width: 50%;
 }
