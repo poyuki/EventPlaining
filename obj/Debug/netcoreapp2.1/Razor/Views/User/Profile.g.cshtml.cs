@@ -84,7 +84,7 @@ using EventPlaining.ViewModel.UserViewModels;
             WriteLiteral("    <div class=\"profile-info\">\r\n        ");
             EndContext();
             BeginContext(339, 134, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9f489707a9e4481ab7674dcd6d0365e7", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7bf9c66c774a4f528b772050d93bf10d", async() => {
                 BeginContext(448, 21, true);
                 WriteLiteral("Редактировать Профиль");
                 EndContext();
@@ -122,7 +122,7 @@ using EventPlaining.ViewModel.UserViewModels;
             WriteLiteral("\r\n        ");
             EndContext();
             BeginContext(483, 131, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1f52b0e050884ddcb807657cfa91d206", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4da75b70a2d8413baae09073c3eae75c", async() => {
                 BeginContext(582, 28, true);
                 WriteLiteral("Редактировать Учетную запись");
                 EndContext();

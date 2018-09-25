@@ -14,13 +14,19 @@ namespace EventPlaining.Models
         
         public EventPlainingDBContext(DbContextOptions opt) : base(opt)
         {
+            ConfigModel myConfig;
+            using (System.IO.StreamReader r = new System.IO.StreamReader("MyProjConfige.json"))
+            {
+                string json = r.ReadToEnd();
+                myConfig = Newtonsoft.Json.JsonConvert.DeserializeObject<ConfigModel>(json);
+            }
             Database.EnsureCreated();
             if (!this.Users.Any(u => u.Role == "Admin"))
             {
                 User admin = new User
                 {
-                    LogInName = "admin",
-                    Password = "1",
+                    LogInName = myConfig.dbSetings.appAdmin.login,
+                    Password = myConfig.dbSetings.appAdmin.password,
                     Role = "Admin"
                 };
                 this.Users.Add(admin);

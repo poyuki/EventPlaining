@@ -35,15 +35,22 @@ function deleteParam(ev) {
 }
 
 function submitForm(ev) {
+    
     let params=getParams(),
         eventDateInput=$('#EventDate'),
-        dateTime,now=new Date();
+        eventTimeInput=$('#EventTime'),
+        dateTime;
     $('#eventParams').val(params);
     if (eventDateInput.val()===''){
-        let month=now.getMonth()<9?`0${(now.getMonth())+1}`:(now.getMonth())+1;
-        dateTime=`${now.getFullYear()}-${month}-${noew.getDate()} ${now.getHours()}:${now.getMinutes()}`
-    } else{
-        dateTime=`${eventDateInput.val()} ${$('#EventTime').val()}`;
+        eventDateInput.addClass('input-error')
+            .attr('title','Необходимо заполнить Дату проведения');
+        ev.preventDefault();
+    } else if (eventTimeInput.val()===''){
+        eventTimeInput.addClass('input-error')
+            .attr('title','Необходимо заполнить Время проведения');
+        ev.preventDefault();
+    } else {
+        dateTime=`${eventDateInput.val()} ${eventTimeInput.val()}`;
     }
     
     $('#eventDateTime').val(dateTime);
@@ -182,8 +189,71 @@ function deleteEvent(id, ev) {
     let el=$(ev.currentTarget),
         eventBox=el.closest('.event-on-index');
     $.post("/Admin/DeleteEventAjax",{id:id},(data)=>{
-        if (data.sucssStatus) {
+        if (data.successStatus) {
             eventBox.remove();
         }
     })
+}
+function getFollowedEvents(id,element) {
+    let el=$(element),eventsArea=$('#user-events-area');
+    if (!el.hasClass("event-list-is-shown")) {
+        $.post('/Admin/GetUserEvents', {id: id}, (data) => {
+            if (!data.notSuccess) {
+                if (data.events.length === 0) {
+                    $('.event-list-is-shown').removeClass('event-list-is-shown');
+                    el.addClass("event-list-is-shown");
+                    eventsArea.text("Пользователь не подписан ни на одно мероприятие");
+                    eventsArea.show();
+                } else {
+                    $('.event-list-is-shown').removeClass('event-list-is-shown');
+                    el.addClass("event-list-is-shown");
+                    eventsArea.html(getHtmlForEvents(data.events));
+                    eventsArea.show();
+                }
+            }
+        });
+    }else{
+        eventsArea.hide();
+        el.removeClass('event-list-is-shown');
+    }
+}
+function showUserProfile(el) {
+    let element=$(el),parent=element.closest('.user-wrap'),
+        profile=parent.find('.user-profile-block');
+        if(profile.is(':visible')){
+            profile.hide();
+            element.attr('title','Показать профиль пользвателя');
+        }else{
+            profile.show();
+            element.attr('title','Скрыть профиль пользвателя');
+        }
+}
+
+function getHtmlForEvents(array) {
+    let html='';
+    array.forEach((ev)=>{
+        let params='';
+        if (ev.Params!==null ) {
+            let temp = ev.Params.split(";");
+            temp.forEach((paramPare) => {
+                if(paramPare!=='') {
+                    let moreTemp = paramPare.split(":");
+                    params += `<div>${moreTemp[0]}: ${moreTemp[1]}</div>`;
+                }
+            });
+        }
+        html+=`
+<div>
+    <div>Название: ${ev.EventName}</div>
+    <div>Дата проведения: ${getDate(ev.EventDateTime)}</div>
+    ${params}
+</div>`
+    });
+    return html;
+}
+
+function getDate(dateString) {
+    let date=new Date(dateString);
+    return `${(date.getDate())}.${date.getMonth()<9?`0${date.getMonth()+1}`:date.getMonth()+1}.${date.getFullYear()} `+
+        `${date.getHours()<9?`0${date.getHours()+1}`:date.getHours()+1}:${date.getMinutes()<9?`0${date.getMinutes()+1}`:date.getMinutes()+1}`;
 }

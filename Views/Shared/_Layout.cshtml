@@ -41,6 +41,10 @@
                         <li><a asp-area="" asp-controller="User" asp-action="Registration">Регистрация</a></li>
                         <li><a asp-area="" asp-controller="User" asp-action="LoginForm">Войти</a></li>
                     }
+                    @if (Model.UserInSession.Role == "Admin")
+                    {
+                        <li><a asp-area="" asp-controller="Admin" asp-action="UsersList">Список пользователей</a></li>
+                    }
                 </ul>
             </div>
         </div>

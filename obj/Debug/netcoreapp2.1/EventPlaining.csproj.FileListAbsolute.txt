@@ -112,3 +112,4 @@ D:\Poyu\CBTtest\obj\Debug\netcoreapp2.1\EventPlaining.Views.pdb
 D:\Poyu\CBTtest\obj\Debug\netcoreapp2.1\EventPlaining.dll
 D:\Poyu\CBTtest\obj\Debug\netcoreapp2.1\EventPlaining.pdb
 D:\Poyu\CBTtest\obj\Debug\netcoreapp2.1\EventPlaining.csproj.CopyComplete
+D:\Poyu\CBTtest\obj\Debug\netcoreapp2.1\Razor\Views\Admin\UsersList.g.cshtml.cs

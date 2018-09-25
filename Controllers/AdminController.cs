@@ -6,6 +6,7 @@ using EventPlaining.Models.Session;
 using EventPlaining.ViewModel.AdminViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace EventPlaining.Controllers
@@ -69,7 +70,7 @@ namespace EventPlaining.Controllers
             return Redirect("~/Home/Index");
         }
         
-        [HttpDelete]
+        [HttpPost]
         public JObject DeleteEventAjax(long id)
         {
             object json;
@@ -157,5 +158,52 @@ namespace EventPlaining.Controllers
             return JObject.FromObject(obj);
         }
         
+        public IActionResult UsersList()
+        {
+            if (GetUserInSession().Role != "Admin")
+            {
+                return Redirect("~/Home/Index");
+            }
+            UsersListViewModel ulvm;
+            try
+            {
+                List<User> users = _db.Users
+                    .Include(u => u.Profile)
+                    .ToList();
+                
+                ulvm=new UsersListViewModel(true,"Успех",GetUserInSession(),users); 
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return Redirect("~/Home/Error");
+            }
+            return View(ulvm);
+        }
+
+        [HttpPost]
+        public JObject GetUserEvents(long id)
+        {
+            JObject json;
+            try
+            {
+                List<EventsUsers> evus = _db.EventsUsers.Include(eu => eu.Event).Where(eu=>eu.UserId==id).ToList();
+                List<Event> events = new List<Event>();
+                foreach (EventsUsers eventsUsers in evus)
+                {
+                    eventsUsers.Event.EventsUsers = null;
+                    events.Add(eventsUsers.Event);
+                }
+                json= JObject.FromObject(new {events});
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Object obj = new {notSuccess = false};
+                json = JObject.FromObject(obj);
+            }
+            
+            return json;
+        }
     }
 }

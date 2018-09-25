@@ -8,40 +8,40 @@
 <h2 style="text-align: center;">Редактирование профиля | <a asp-action="Profile" asp-route-id="@edvm.UserInSession.Id">Назад к профилю</a></h2>
 @if (edvm.SuccessStatus)
 {
-    <div style="width: 40px;" class="form-at-center">
+    <div  class="form-at-center edit-profile-form">
         <form method="post" asp-controller="User" asp-action="SubmitEditProfile">
             <button class="submit-event-button" type="submit">Сохранить</button>
             <div>
                 <label>Имя</label>
-                <input name="FirstName" value="@edvm.Profile.FirstName"/>
+                <input type="text" name="FirstName" value="@edvm.Profile.FirstName"/>
             </div>
             <div>
                 <label>Фамилия</label>
-                <input name="SecondName" value="@edvm.Profile.SecondName"/>
+                <input type="text" name="SecondName" value="@edvm.Profile.SecondName"/>
             </div>
             <div>
                 <label>Возраст</label>
-                <input name="Age" value="@edvm.Profile.Age"/>
+                <input type="number" name="Age" value="@edvm.Profile.Age"/>
             </div>
             <div>
                 <label>Пол</label>
-                <input name="Sec" value="@edvm.Profile.Sec"/>
+                <input type="text" name="Sec" value="@edvm.Profile.Sec"/>
             </div>
             <div>
                 <label>Номер мобильного телефона</label>
-                <input name="PhoneNumber" value="@edvm.Profile.PhoneNumber"/>
+                <input type="tel" name="PhoneNumber" value="@edvm.Profile.PhoneNumber"/>
             </div>
             <div>
                 <label>Место работы</label>
-                <input name="WorkPlace" value="@edvm.Profile.WorkPlace"/>
+                <input type="text" name="WorkPlace" value="@edvm.Profile.WorkPlace"/>
             </div>
             <div>
                 <label>Место учебы</label>
-                <input name="EducPlace" value="@edvm.Profile.EducPlace"/>
+                <input type="text" name="EducPlace" value="@edvm.Profile.EducPlace"/>
             </div>
             <div>
                 <label>О себе</label>
-                <input name="About" value="@edvm.Profile.About"/>
+                <textarea rows="4" name="About" value="@edvm.Profile.About"></textarea>
             </div>
             <input type="hidden" name="Id" value="@edvm.Profile.Id"/>
         </form>

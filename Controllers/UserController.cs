@@ -33,12 +33,7 @@ namespace EventPlaining.Controllers
             bool succesStatus;
             try
             {
-                ConfigModel conf;
-                using (System.IO.StreamReader r = new System.IO.StreamReader("MyProjConfige.json"))
-                {
-                    string json = r.ReadToEnd();
-                    conf = Newtonsoft.Json.JsonConvert.DeserializeObject<ConfigModel>(json);
-                }
+                
                 
                 _db.NotSubmitedUsers.Add(notSubmitedUser);
                 _db.SaveChanges();
@@ -64,8 +59,8 @@ namespace EventPlaining.Controllers
                 {
                     client.ServerCertificateValidationCallback = (s, c, h, e) => true;
                     
-                    client.Connect(conf.smptSetings.host,conf.smptSetings.port,conf.smptSetings.ssl);
-                    client.Authenticate(conf.smptSetings.authenticateLogin,conf.smptSetings.authenticatePasword);
+                    client.Connect(_MyConfigue.smptSetings.host,_MyConfigue.smptSetings.port,_MyConfigue.smptSetings.ssl);
+                    client.Authenticate(_MyConfigue.smptSetings.authenticateLogin,_MyConfigue.smptSetings.authenticatePasword);
 
                     client.Send (message);
                     client.Disconnect (true);

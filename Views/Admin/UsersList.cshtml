@@ -1,0 +1,36 @@
+﻿@using EventPlaining.ViewModel.AdminViewModels
+@{
+    UsersListViewModel ulvm = Model;
+    ViewBag.Title = "Пользователи системы";
+    Layout = "_Layout";
+}
+
+<h2>Список пользователей зарегестрировавшихся в системе</h2>
+<div class="users-list">
+    @foreach (User user in ulvm.Users)
+    {
+        <div class="user-wrap">
+            <div class="user">
+                <div>Логин: @user.LogInName</div>
+                <div>Электронная почта: @user.Email</div>
+                <div>
+                    <span class="my-app-command-link" title="Список мероприятй на которые подписан пользователь" onclick="getFollowedEvents(@user.Id, this)">Мероприятия</span>
+                </div>
+                <div>
+                    <span class="my-app-command-link" title="Показать профиль пользвателя" onclick="showUserProfile(this)">Профиль пользователя</span>
+                </div>
+            </div>
+            <div class="user-profile-block">
+                <div>Имя: @user.Profile.FirstName</div>
+                <div>Фамилия: @user.Profile.SecondName</div>
+                <div>Телефонный номер: @user.Profile.PhoneNumber</div>
+                <div>Пол: @user.Profile.Sec</div>
+                <div>Возраст: @user.Profile.Age</div>
+                <div>Место учебы: @user.Profile.EducPlace</div>
+                <div>Место работы: @user.Profile.WorkPlace</div>
+                <div>О себе: @user.Profile.About</div>
+            </div>
+        </div>
+    }
+</div>
+<div id="user-events-area"></div>

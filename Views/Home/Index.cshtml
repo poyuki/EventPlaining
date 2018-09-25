@@ -17,8 +17,11 @@
     @foreach (Event ev in ivm.Events)
     {
         <div class="event-on-index">
-            <i class="fas fa-minus" title="Удалить событие" onclick="deleteEvent(@ev.Id,event)"></i>
-            <div>
+            @if (ivm.UserInSession.Role == "Admin")
+            {
+                <i class="fas fa-minus" title="Удалить мероприяте" onclick="deleteEvent(@ev.Id, event)"></i>
+            }
+            <div class="event-name">
                 @if (ivm.UserInSession.Role == "Admin")
                 {
                     <a title="Пользователи подписавшиеся на мероприятие"
@@ -34,7 +37,7 @@
             </div>
             <div>
                 <div>Дата и время проведения:</div>
-                <div>@ev.EventDateTime.ToString("f")</div>
+                <div>@ev.EventDateTime.ToString("dd.MM.yyyy HH:mm")</div>
             </div>
             @if (ev.VisitorsCount != 0)
             {

@@ -69,7 +69,7 @@ using EventPlaining.Models;
             WriteLiteral("\r\n<div id=\"message\"></div>\r\n<h2>Заполните форму чтобы добавить мероприятие | ");
             EndContext();
             BeginContext(189, 60, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7e0d6efe30d145418164f8db4fd2c181", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6738c8cce9ad48cca36033f80f1050d5", async() => {
                 BeginContext(233, 12, true);
                 WriteLiteral("К расписанию");
                 EndContext();
@@ -93,7 +93,7 @@ using EventPlaining.Models;
             WriteLiteral("</h2>\r\n<div class=\"add-event-wrap\">\r\n    ");
             EndContext();
             BeginContext(290, 728, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9817c5c737e94569ba3ce1cd72f40f5c", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d3dde6a7aa6f4bf6991efef7390f45ae", async() => {
                 BeginContext(393, 618, true);
                 WriteLiteral(@"
         <button type=""submit"" class=""submit-event-button"">Подтвердить мероприятие</button>

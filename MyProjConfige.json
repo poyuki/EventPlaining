@@ -5,5 +5,16 @@
     "ssl":true,
     "authenticateLogin":"testmailpoyu@gmail.com",
     "authenticatePasword":"123993pki"
+  },
+  "dbSetings":{
+    "server":"localhost",
+    "database":"EventPlainingDB",
+    "user":"root",
+    "password":"",
+    "version":"5.6.37",
+    "appAdmin":{
+      "login":"admin",
+      "password":"1"
+    }
   }
 }

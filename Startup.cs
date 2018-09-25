@@ -28,17 +28,25 @@ namespace EventPlaining
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
-
-            
             services.AddDbContextPool<EventPlainingDBContext>( // replace "YourDbContext" with the class name of your DbContext
-                options => options.UseMySql("Server=localhost;Database=EventPlainingDB;User=root;Password=;", // replace with your Connection String
-                    mysqlOptions =>
+                options =>
+                {
+                    ConfigModel myConfig;
+                    using (System.IO.StreamReader r = new System.IO.StreamReader("MyProjConfige.json"))
                     {
-                        mysqlOptions.ServerVersion(new Version(5, 6, 37), ServerType.MySql); // replace with your Server Version and Type
+                        string json = r.ReadToEnd();
+                        myConfig = Newtonsoft.Json.JsonConvert.DeserializeObject<ConfigModel>(json);
                     }
-                    
-                ));
+                    options.UseMySql(
+                        $"Server={myConfig.dbSetings.server};Database={myConfig.dbSetings.database};User={myConfig.dbSetings.user};Password={myConfig.dbSetings.password};", // replace with your Connection String
+                        mysqlOptions =>
+                        {
+                            mysqlOptions.ServerVersion(
+                                new Version(myConfig.dbSetings.getMajorVersion(), myConfig.dbSetings.getMinorVersion(), myConfig.dbSetings.getPatchVersion()),
+                                ServerType.MySql); // replace with your Server Version and Type
+                        }
+                    );
+                });
 
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
